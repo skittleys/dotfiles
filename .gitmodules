@@ -1,0 +1,3 @@
+[submodule "sublime/.config/sublime-text-2/Packages/DebSyntax"]
+    path = sublime/.config/sublime-text-2/Packages/DebSyntax
+    url = https://github.com/skittleys/DebSyntax.git
