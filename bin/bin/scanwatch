@@ -1,0 +1,41 @@
+#!/bin/bash
+
+usage() {
+    cat << EOF
+    scanwatch <pkg name> [debian version]
+
+    pkg name is mandatory
+    version is optional
+
+    if version is not given, it will be derived from apt-cache madison.
+EOF
+    exit 1
+}
+
+[[ $# -ne 1 && $# -ne 2 ]] && usage
+
+if [[ -f "$1" ]]; then
+    WATCHFILE=$1
+    PKG=$(echo $WATCHFILE | sed -E "s/(.*)_.*/\1/")
+    VSN=$(echo $WATCHFILE | sed -E "s/.*_(.*)\.watch/\1/")
+else
+    PKG=$1
+    if [[ -z "$2" ]]; then
+	VSN=$(apt-cache madison $PKG \
+	    | grep unstable \
+	    | grep Sources \
+	    | sed -E "s/.*\|\s*(.*)\s*\|.*/\1/" \
+	    | sed -E "s/\s//")
+    else
+	VSN="$2"
+    fi
+    WATCHFILE="$PKG"_"$VSN".watch
+fi
+
+UVSN=$(echo "$VSN" | sed -E 's/([^-])\-.*/\1/')
+echo $UVSN
+
+uscan --no-download --verbose \
+    --package "$PKG" \
+    --watchfile "$WATCHFILE" \
+    --upstream-version "$UVSN"

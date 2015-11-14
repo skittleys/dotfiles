@@ -1,0 +1,59 @@
+#! /bin/bash
+
+default="source-highlight --failsafe -f esc --style-file=esc.style"
+infer="$default --infer-lang"
+setlang="$default --lang-def="
+
+getpath() {
+    echo "$(cd "$(dirname "$fname")"; pwd)/$(basename "$fname")";
+}
+
+for source in "$@"; do
+    case $(basename "$source") in
+	*ChangeLog|*changelog) 
+	    ${setlang}changelog.lang -i "$source" ;;
+	*Makefile|*makefile|*PKGBUILD) 
+	    ${setlang}makefile.lang -i "$source" ;;
+	*.cfg) 
+	    ${setlang}conf.lang -i "$source" ;;
+	*.patch)
+	    ${setlang}diff.lang -i "$source" ;;
+	*.dsc) 
+	    ${setlang}manifest.lang -i "$source" ;;
+        *rules)
+	    fname=$source
+	    if [[ $(getpath) == *"/debian/rules" ]]; then
+	    	${setlang}makefile.lang -i "$source"
+	    else
+	    	$infer -i "$source"
+	    fi
+	    ;;
+        *control)
+	    fname=$source
+	    if [[ $(getpath) == *"/debian/control" ]]; then
+	    	${setlang}manifest.lang -i "$source"
+	    else
+	    	$infer -i "$source"
+	    fi
+	    ;;
+
+        ## zsh completions (always start with _, and 1st line always #compdef or #autoload)
+	_*)
+	    if [[ $(head -n 1 "$source") == "#compdef"* || "#autoload"* ]]; then
+	    	${setlang}sh.lang -i "$source"
+	    else
+	    	$infer -i "$source"
+	    fi
+	    ;;
+#	*.zsh)   # there's a patch waiting to be implemented, who knows when it'll be done, so see if it exists 1st
+#	    if [[ -e /usr/share/source-highlight/zsh.lang ]]; then
+#	    	${setlang}zsh.lang -i "$source"
+#	    else
+#	    	${setlang}sh.lang -i "$source"
+#	    fi
+#	    ;;
+
+		
+	*) $infer -i "$source" ;;
+    esac
+done

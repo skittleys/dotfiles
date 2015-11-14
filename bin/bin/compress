@@ -1,0 +1,75 @@
+#!/bin/sh
+
+# http://intuitive.com/wicked/scripts/038-bestcompress.txt
+
+# bestcompress - given a file, try compressing it with all the available
+#   compression tools and keep the compressed file that's smallest, reporting 
+#   the result to the user.  If '-a' isn't specified, it skips compressed
+#   files in the input stream.
+
+xz="xz"
+gz="gzip" 
+bz="bzip2"
+xzout="/tmp/bestcompress.$$.xz"
+gzout="/tmp/bestcompress.$$.gz"
+bzout="/tmp/bestcompress.$$.bz"
+skipcompressed=1
+
+if [ "$1" = "-a" ] ; then
+  skipcompressed=0  ; shift
+fi
+
+if [ $# -eq 0 ]; then
+  echo "Usage: $0 [-a] file or files to optimally compress" >&2; exit 1
+fi
+
+trap "/bin/rm -f $xzout $gzout $bzout" EXIT
+
+echo "Starting..."
+
+for name 
+do 
+  if [ ! -f "$name" ] ; then 
+    echo "$0: file $name not found. Skipped." >&2
+    continue
+  fi
+
+  if [ "$(echo $name | egrep '(\.xz$|\.gz$|\.bz2$)')" != "" ] ; then
+    if [ $skipcompressed -eq 1 ] ; then
+      echo "Skipped file ${name}: it's already compressed." 
+      continue
+    else
+      echo "Warning: Trying to double-compress $name" 
+    fi
+  fi
+
+  $xz  < "$name" > $xzout  &
+  $gz < "$name" > $gzout &
+  $bz < "$name" > $bzout &
+  
+  wait	# run compressions in parallel for speed. Wait until all are done
+
+  echo "File sizes are:"
+  echo "GZip: $(ls -lah $gzout | awk '{ print $5}')"
+  echo "BZip: $(ls -lah $bzout | awk '{ print $5}')"
+  echo "XZ: $(ls -lah $xzout | awk '{ print $5}')"
+
+  smallest="$(ls -l "$name" $xzout $gzout $bzout | \
+     awk '{print $5"="NR}' | sort -n | cut -d= -f2 | head -1)"
+
+  case "$smallest" in
+     1 ) echo "No space savings by compressing $name. Left as-is."
+	 ;;
+     2 ) echo Best compression is with compress. File renamed ${name}.xz
+         mv $xzout "${name}.xz" ; rm -f "$name"
+	 ;;
+     3 ) echo Best compression is with gzip. File renamed ${name}.gz
+	 mv $gzout "${name}.gz" ; rm -f "$name"
+	 ;;
+     4 ) echo Best compression is with bzip2. File renamed ${name}.bz2
+	 mv $bzout "${name}.bz2" ; rm -f "$name"
+  esac
+
+done
+
+exit 0

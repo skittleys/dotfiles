@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cd ~/debian/myrepo 
+dpkg-scanpackages . /dev/null | gzip -9 > Packages.gz
+echo "Running pbuilder update..."
+su -c "cowbuilder --update --basepath /var/cache/pbuilder/base-sid.cow"

@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Modified from https://coderwall.com/p/ewz5zq
+
+# Running "find-dirty" will find and check all .git folders under the working 
+# directory for either unstaged or uncommitted changes, printing the path if a 
+# repository has either.
+
+unstaged_changes() {
+    worktree=${1%/*};
+    git --git-dir="$1" --work-tree="$worktree" diff-files --quiet --ignore-submodules --
+}
+
+uncommited_changes() {
+    worktree=${1%/*};
+    git --git-dir="$1" --work-tree="$worktree" diff-index --cached --quiet HEAD --ignore-submodules --
+}
+
+for gitdir in `find . -name .git`; do
+    worktree=${gitdir%/*};
+    if ! unstaged_changes $gitdir
+    then
+        echo "unstaged     ${gitdir:0:${#gitdir}-5}"   # -5 to cut off "/.git"
+    fi
+
+    if ! uncommited_changes $gitdir
+    then
+        echo "unstaged     ${gitdir:0:${#gitdir}-5}"   # -5 to cut off "/.git"
+    fi
+done

@@ -1,0 +1,39 @@
+#!/bin/bash
+
+usage() {
+    cat << EOF
+    getwatch <pkg name> [debian version]
+
+    pkg name is mandatory
+    version is optional
+
+    if version is not given, it will be derived from apt-cache madison.
+EOF
+    exit 1
+}
+
+if [[ $# -eq 1 || $# -eq 2 ]]; then
+    PKG=$1
+    if [[ -z "$2" ]]; then
+	VSN=$(apt-cache madison $PKG \
+	    | grep unstable \
+	    | grep Sources \
+	    | sed -E "s/.*\|\s*(.*)\s*\|.*/\1/" \
+	    | sed -E "s/\s//")
+    else
+    	VSN="$2"
+    fi
+    
+    # Packages are divided into subdirectories by first letter. 
+    # All packages beginning with "lib" are filed instead in "lib[\w]"
+    # e.g., libssl is in "libs"
+    if [[ ${PKG:0:3} == "lib" ]]; then
+    	PREFIX=${PKG:0:4}
+    else
+    	PREFIX=${PKG:0:1}
+    fi
+
+    wget -O "${PKG}_${VSN}.watch" http://sources.debian.net/data/main/$PREFIX/$PKG/$VSN/debian/watch
+else
+    usage
+fi

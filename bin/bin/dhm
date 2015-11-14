@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+#basename `pwd` | sed "s/-/_/"
+dh_make --single --yes "$@"
+builtin cd "./debian"
+rm -f *.ex *.EX README.* docs
