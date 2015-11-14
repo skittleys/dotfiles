@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#/usr/share/source-highlight/src-hilite-lesspipe.sh "$1"
+/home/cm/bin/src-hilite "$1"

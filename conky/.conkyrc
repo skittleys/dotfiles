@@ -1,0 +1,114 @@
+# Slackware Conky Google Now Dark style #
+
+# Conky settings #
+background no
+update_interval 2
+double_buffer yes
+no_buffers yes
+
+# Window specifications #
+own_window yes
+own_window_class Conky
+own_window_type desktop
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_transparent no
+own_window_argb_visual yes
+own_window_argb_value 111
+
+minimum_size 230
+maximum_width 230
+
+# Alignment #
+alignment top_left
+gap_x 29
+gap_y 54
+
+border_inner_margin 15
+border_outer_margin 0
+
+# Graphics settings #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# Text settings #
+use_xft yes
+xftalpha 0
+xftfont Sawasdee Bold:size=10
+
+override_utf8_locale yes
+
+imlib_cache_size 0
+
+# Color scheme #
+default_color CCCCCC
+
+color1 666666 # grey
+color2 FF00A0 # pink
+color3 CCFF00 # green
+color4 FF9F00 # orange
+color5 48C6FF # blue
+color6 BE67E1 # purple
+color7 63E7F0 # cyan
+color8 F3F3F3 # white
+
+TEXT
+# conky google now
+${execi 300 curl -s "http://weather.yahooapis.com/forecastrss?w=22664159&u=c" -o ~/.cache/conky/weather.xml}${font Carlito:size=15}${execi 300 grep "yweather:location" ~/.cache/conky/weather.xml | grep -o "city=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}${font}
+${font Carlito:size=60}${alignr}${execi 300 grep "yweather:condition" ~/.cache/conky/weather.xml | grep -o "temp=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}°${font}${voffset -10}
+${execi 300 cp -f ~/.config/conky/conky-google-now/$(grep "yweather:condition" ~/.cache/conky/weather.xml | sed -E 's/.*code="([[:digit:]]+)".*/\1/').png ~/.cache/conky/weather.png}${image ~/.cache/conky/weather.png -p 0,25 -s 60x60}
+${execi 300 grep "yweather:condition" ~/.cache/conky/weather.xml | grep -o "text=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | tr '[a-z]' '[A-Z]'}
+${image ~/.config/conky/conky-google-now/wind.png -p 0,107 -s 15x15}${goto 35}${execi 300 grep "yweather:wind" ~/.cache/conky/weather.xml | grep -o "speed=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}${execi 300 grep "yweather:units" ~/.cache/conky/weather.xml | grep -o "speed=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}
+${image ~/.config/conky/conky-google-now/humidity.png -p 0,122 -s 15x15}${goto 35}${execi 300 grep "yweather:atmosphere" ~/.cache/conky/weather.xml | grep -o "humidity=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}%${voffset 15}
+${goto 18}${execi 600 grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "day=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1' | tr '[a-z]' '[A-Z]'}${goto 70}${execi 600 grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "day=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==2' | tr '[a-z]' '[A-Z]'}${goto 120}${execi 600 grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "day=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==3' | tr '[a-z]' '[A-Z]'}${goto 170}${execi 600 grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "day=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==4' | tr '[a-z]' '[A-Z]'}${goto 218}${execi 600 grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "day=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==5' | tr '[a-z]' '[A-Z]'}
+${execi 600 cp -f ~/.config/conky/conky-google-now/$(grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1').png ~/.cache/conky/weather-1.png}${image ~/.cache/conky/weather-1.png -p 0,169 -s 30x30}${execi 600 cp -f ~/.config/conky/conky-google-now/$(grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==2').png ~/.cache/conky/weather-2.png}${image ~/.cache/conky/weather-2.png -p 50,169 -s 30x30}${execi 600 cp -f ~/.config/conky/conky-google-now/$(grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==3').png ~/.cache/conky/weather-3.png}${image ~/.cache/conky/weather-3.png -p 100,169 -s 30x30}${execi 600 cp -f ~/.config/conky/conky-google-now/$(grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==4').png ~/.cache/conky/weather-4.png}${image ~/.cache/conky/weather-4.png -p 150,169 -s 30x30}${execi 600 cp -f ~/.config/conky/conky-google-now/$(grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==5').png ~/.cache/conky/weather-5.png}${image ~/.cache/conky/weather-5.png -p 200,169 -s 30x30}${voffset 20}
+${goto 20}${execi 600 grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°${goto 70}${execi 600 grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==2'}°${goto 120}${execi 600 grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==3'}°${goto 170}${execi 600 grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==4'}°${goto 220}${execi 600 grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==5'}°
+${goto 20}${execi 600 grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°${goto 70}${execi 600 grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==2'}°${goto 120}${execi 600 grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==3'}°${goto 170}${execi 600 grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==4'}°${goto 220}${execi 600 grep "yweather:forecast" ~/.cache/conky/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==5'}°
+${hr}${voffset -1}
+# current desktop
+${alignc 3}${font Carlito:size=16}${if_match ${desktop}==1}${color2}${endif}• ${color}${if_match ${desktop}==2}${color2}${endif}•${color}${font}${voffset 5}
+# system date
+${alignc 35}${font Sawasdee Bold:size=16}${color5}${time %a %d %b %Y}${color}${font}${voffset 10}
+# gnu/linux distro
+${alignc 30}${font Sawsadee:size=16}${color3}${exec grep -m 1 "^DISTRIB_ID=" /etc/lsb-release* | sed -e "s/^DISTRIB_ID=\(.*\)$/\1/g" | sed -r "s/\b(.)/\U\1/g" | sed "s/[Cc]runch[Bb]ang/#!/"} ${exec grep "^DISTRIB_RELEASE=" /etc/lsb-release* | sed -e "s/^DISTRIB_RELEASE=\(.*\)$/\1/g"} (${exec grep -i "Release" /etc/apt/apt.conf | sed -E "s/.*Release.*\"(.*)\";/\1/"})${color}${font}
+#${alignc 40}${font Sawsadee:size=16}${color3}${exec grep -m 1 "^DISTRIB_DESCRIPTION=" /etc/lsb-release* | sed -e "s/^DISTRIB_DESCRIPTION=\"\(.*\)\"$/\1/g" | sed -r "s/\b(.)/\U\1/g" | sed "s/[Cc]runch[Bb]ang/#!/"} (${exec grep -i "Release" /etc/apt/apt.conf | sed -E "s/.*Release.*\"(.*)\";/\1/"})${color}${font}
+# kernel version & arch
+${alignc}${color5}${kernel} (${machine})${color}
+
+# system info
+User: ${color6}${uid_name 1000}${color}${alignr}Machine: ${color6}${nodename}${color}
+Uptime: ${color6}${uptime_short} ${alignr}${loadavg}${color}
+RAM: ${color6}${mem}${color} / ${color6}${memmax}${color} - ${color6}${memperc}% ${voffset 2}${membar 6}${color}
+Swap: ${color6}${swap}${color}/ ${color6}${swapmax}${color}- ${color6}${if_match ${swapperc} == "No swap"}0${else}${swapperc}${endif}% ${voffset 2}${swapbar 6}${color}
+Disk: ${color6}${fs_used /}${color} / ${color6}${fs_size /}${color} - ${color6}${voffset 2}${fs_bar 6 /}${color}
+#Data: ${color6}${fs_used /mnt/datos}${color} / ${color6}${fs_size /mnt/datos}${color} - ${color6}${voffset 2}${fs_bar 6 /mnt/datos}${color}
+#Battery: ${color6}${battery_percent BAT1}%${color}${alignr}AC Adapter: ${color6}${acpiacadapter}${color}
+
+${font Arial:bold:size=10}${color4}PROCESSORS ${color2}${hr 2}${font}${color}
+CPU: ${color6}${cpu}%${color}${alignr}Temp: ${color6}${acpitemp}° C${color}
+${tab}${tab}CPU 1:${tab}${tab}${color6}${freq_g 0}${color} Ghz${alignr}${color6}${cpu cpu0}${color} %
+${tab}${tab}CPU 2:${tab}${tab}${color6}${freq_g 1}${color} Ghz${alignr}${color6}${cpu cpu1}${color} %
+#${tab}${tab}CPU 3:${tab}${tab}${color6}${freq_g 2}${color} Ghz${alignr}${color6}${cpu cpu2}${color} %
+#${tab}${tab}CPU 4:${tab}${tab}${color6}${freq_g 3}${color} Ghz${alignr}${color6}${cpu cpu3}${color} %
+${alignr}${cpugraph 20,230 CE5C00 A40000 -l -t}${color}${voffset -1}
+# network
+${font Arial:bold:size=10}${color4}NETWORK ${color2}${hr 2}${font}${color}
+#${if_up wlan}WiFi:
+#${tab}${tab}Strength: ${color6}${wireless_link_qual_perc wlan0} %${color}${alignr}Essid: ${color6}${wireless_essid wlan0}${color}
+#${tab}${tab}Download: ${color6}${downspeed wlan0}${color}${alignr}Upload: ${color6}${upspeed wlan0}${color}
+#${tab}${tab}Public IP:${alignr}${color6}${execi 3600 wget -q -O /dev/stdout http://checkip.dyndns.org/ | cut -d : -f 2- | cut -d \< -f -1 | sed 's/^ *//g'}${color}
+#${tab}${tab}Local IP:${alignr}${color6}${addr wlan0}${color}${endif}
+${if_up eth0}Wired:
+${tab}${tab}Download: ${color6}${downspeed eth0}${color}${alignr}Upload: ${color6}${upspeed eth0}${color}
+#${tab}${tab}Public IP:${alignr}${color6}${execi 3600 wget -q -O /dev/stdout http://checkip.dyndns.org/ | cut -d : -f 2- | cut -d \< -f -1 | sed 's/^ *//g'}${color}
+#${tab}${tab}Local IP:${alignr}${color6}${addr eth0}${color}${endif}
+${if_up wlan0}${else}${if_up eth0}${else}${voffset -20}${color7}Network Unavailable!${tab}${tab}:(${color}${voffset 20}${endif}${endif}
+${font Arial:bold:size=10}${color4}PROCESSES ${color2}${hr 2}${color}${font Sawasdee Bold:size=8}
+${color6}${tab}${tab}${top_mem name 1}${alignr}${top_mem pid 1} ${top_mem cpu 1}% ${top_mem mem 1}%
+${tab}${tab}${top_mem name 2}${alignr}${top_mem pid 2} ${top_mem cpu 2}% ${top_mem mem 2}%
+${tab}${tab}${top_mem name 3}${alignr}${top_mem pid 3} ${top_mem cpu 3}% ${top_mem mem 3}%
+${tab}${tab}${top_mem name 4}${alignr}${top_mem pid 4} ${top_mem cpu 4}% ${top_mem mem 4}%
+${tab}${tab}${top_mem name 5}${alignr}${top_mem pid 5} ${top_mem cpu 5}% ${top_mem mem 5}%
+${color #999999}${font Sawasdee Bold:size=6}${alignr}PID         CPU         MEM  ${voffset 5}
+${alignr}${memgraph 20,230 CE5C00 A40000 -l -t}${color}

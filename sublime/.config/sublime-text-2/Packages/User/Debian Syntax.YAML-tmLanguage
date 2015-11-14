@@ -1,0 +1,25 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+---
+name: Debian Syntax
+scopeName: source.debsyntax
+fileTypes: [dsc]
+uuid: 6df4e41e-2988-41ac-bdcd-a4b1347b42e9
+
+patterns: 
+  - 
+    match: ^([\w\-]+)(:)
+    captures: 
+      '1': {name: keyword.debsyntax}
+  - 
+    match: ^\s.*
+    name: "comment.block"
+  - 
+    match: \$\{[\w\-:]+\}
+    name: "support.function"
+  - 
+    match: \s\(([<>=]{1,2}\s[\w\-\.\+~:]+)\)
+    captures:
+      '1': {name: constant}
+  - 
+    match: ^.*;\surgency=.*$
+    name: "keyword.debsyntax"

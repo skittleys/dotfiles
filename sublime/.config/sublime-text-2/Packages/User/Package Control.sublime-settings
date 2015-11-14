@@ -1,0 +1,30 @@
+{
+	"installed_packages":
+	[
+		"AAAPackageDev",
+		"ApplySyntax",
+		"Base16 Color Schemes",
+		"BracketHighlighter",
+		"Color Highlighter",
+		"Dotfiles Syntax Highlighting",
+		"Man Page Support",
+		"Mirodark Color Scheme",
+		"ModernPerl",
+		"Package Control",
+		"RPM Spec Syntax",
+		"RubyTest",
+		"SchemeCycler",
+		"Schemr",
+		"SublimeLinter",
+		"Theme - Afterglow",
+		"Theme - Cyanide",
+		"Theme - Flatland",
+		"Theme - Nil",
+		"Theme - Orchis",
+		"Theme - Phoenix",
+		"Theme - Piatto",
+		"Theme - Soda",
+		"ToggleMinimapOnScroll",
+		"VimL"
+	]
+}

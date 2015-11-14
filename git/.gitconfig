@@ -1,0 +1,13 @@
+[user]
+	name = skittleys
+	email = skittleys@users.noreply.github.com\n
+[color]
+	ui = auto
+[credential]
+	helper = cache --timeout=3600
+[push]
+	default = simple
+[core]
+	editor = vim
+[merge]
+	tool = meld

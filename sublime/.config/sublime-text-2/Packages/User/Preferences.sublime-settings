@@ -1,0 +1,38 @@
+{
+	"color_scheme": "Packages/Theme - Nil/Tubnil.tmTheme",
+	"dictionary": "Packages/Language - English/en_US.dic",
+	"font_face": "Monaco for Powerline",
+	"font_size": 8,
+	"ignored_packages":
+	[
+		"BracketHighlighter",
+		"Color Highlighter",
+		"ToggleMinimapOnScroll",
+		"Vintage",
+		"Schemr",
+		"ModernPerl",
+		"Theme - Afterglow",
+		"Base16 Color Schemes",
+		"Theme - Cyanide",
+		"Dotfiles Syntax Highlighting",
+		"Theme - Flatland",
+		"RubyTest",
+		"Theme - Phoenix"
+	],
+	"ignored_words":
+	[
+		"Fruchterman",
+		"Pajek",
+		"Reingold",
+		"backlink",
+		"graphml",
+		"indices",
+		"neighbourhood",
+		"neighbours",
+		"png",
+		"sociomatrix",
+		"statusbar",
+		"toolbar",
+		"vertices"
+	]
+}

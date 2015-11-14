@@ -1,0 +1,4 @@
+{
+	"last_test_run": "ruby -Itest ruby/tomdoc/ruby-tomdoc/test/source_parser_test.rb -n 'test_attaches_TomDoc'",
+	"last_test_working_dir": "/home/cm/debian"
+}

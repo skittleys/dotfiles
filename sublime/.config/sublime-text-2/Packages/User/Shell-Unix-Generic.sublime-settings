@@ -1,0 +1,7 @@
+{
+	"extensions":
+	[
+		"git-info",
+		"*_setup"
+	]
+}

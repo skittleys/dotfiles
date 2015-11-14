@@ -1,0 +1,1 @@
+/usr/share/vim/addons/syntax/notmuch-git-diff.vim

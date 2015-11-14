@@ -1,0 +1,1282 @@
+{
+	"folder_history":
+	[
+		"/usr/lib/prezto",
+		"/home/cm/debian",
+		"/home/cm/debian/last-attic/attic",
+		"/home/cm/debian/last-attic",
+		"/home/cm/.config/sublime-text-2/Packages/ApplySyntax",
+		"/home/cm/builds/grep/grep-2.12/debian",
+		"/home/cm/.config/sublime-text-2/Packages",
+		"/home/cm/.config/sublime-text-2/Packages/Makefile",
+		"/usr/share/themes/Nova-Blue/openbox-3"
+	],
+	"last_window_id": 1,
+	"settings":
+	{
+	},
+	"windows":
+	[
+		{
+			"auto_complete":
+			{
+				"selected_items":
+				[
+					[
+						"bz",
+						"bzout"
+					],
+					[
+						"test",
+						"testsuite"
+					],
+					[
+						"sa",
+						"sane"
+					],
+					[
+						"tmp",
+						"tmp_file"
+					],
+					[
+						"debsy",
+						"debsyntax"
+					],
+					[
+						"prom",
+						"prompt_end"
+					],
+					[
+						"promp",
+						"prompt_git"
+					],
+					[
+						"sub",
+						"sublime-settings"
+					]
+				]
+			},
+			"buffers":
+			[
+				{
+					"contents": ".\\\"                                      Hey, EMACS: -*- nroff -*-\n.\\\" First parameter, NAME, should be all caps\n.\\\" Second parameter, SECTION, should be 1-8, maybe w/ subsection\n.\\\" other parameters are allowed: see man(7), man(1)\n.TH RAKE 1 \"August 27, 2014\" \"rake 10.3.2\" \"Rake User Commands\"\n.\\\" Please adjust this date whenever revising the manpage.\n.\\\"\n.\\\" Some roff macros, for reference:\n.\\\" .nh        disable hyphenation\n.\\\" .hy        enable hyphenation\n.\\\" .ad l      left justify\n.\\\" .ad b      justify to both left and right margins\n.\\\" .nf        disable filling\n.\\\" .fi        enable filling\n.\\\" .br        insert line break\n.\\\" .sp <n>    insert n+1 empty lines\n.\\\" for manpage-specific macros, see man(7)\n.SH NAME\nrake \\- a make-like build utility for Ruby \n.SH SYNOPSIS\n\\fBrake\\fR [\\fI\\-f rakefile\\fR] {\\fIOPTIONS\\fR} \\fITARGETS...\\fR\n.br\n.SH DESCRIPTION\n.B rake\nis a make-like build utility for Ruby. Tasks and dependencies are specified in\nstandard Ruby syntax.\n.SH OPTIONS\n.TP\n\\fB\\-m\\fR, \\fB\\-\\-multitask\\fR\nTreat all tasks as multitasks.\n.TP\n\\fB\\-B\\fR, \\fB\\-\\-build\\-all\\fR\nBuild all prerequisites, including those which are up\\-to\\-date.\n\n.TP\n\\fB\\-j\\fR, \\fB\\-\\-jobs\\fR [\\fINUMBER\\fR]\nSpecifies the maximum number of tasks to execute in parallel (default is number of CPU cores + 4).\n\n.SS Modules\n.TP\n\\fB\\-I\\fR, \\fB\\-\\-libdir\\fR \\fILIBDIR\\fR\nInclude \\fILIBDIR\\fR in the search path for required modules.\n.TP\n\\fB\\-r\\fR, \\fB\\-\\-require\\fR \\fIMODULE\\fR\nRequire \\fIMODULE\\fR before executing rakefile.\n\n.SS Rakefile location\n.TP\n\\fB\\-f\\fR, \\fB\\-\\-rakefile\\fR [\\fIFILENAME\\fR]\nUse \\fIFILENAME\\fR as the rakefile to search for.\n.TP\n\\fB\\-N\\fR, \\fB\\-\\-no\\-search\\fR, \\fB\\-\\-nosearch\\fR\nDo not search parent directories for the Rakefile.\n.TP\n\\fB\\-G\\fR, \\fB\\-\\-no\\-system\\fR, \\fB\\-\\-nosystem\\fR\nUse standard project Rakefile search paths, ignore system wide rakefiles.\n.TP\n\\fB\\-R\\fR, \\fB\\-\\-rakelibdir\\fR \\fIRAKELIBDIR\\fR\nAuto\\-import any .rake files in \\fIRAKELIBDIR\\fR (default is 'rakelib')\n.HP\n\\fB\\-\\-rakelib\\fR\n.TP\n\\fB\\-g\\fR, \\fB\\-\\-system\\fR\nUsing system wide (global) rakefiles (usually '\\fI~/.rake/*.rake\\fR').\n\n.SS Debugging\n.TP\n\\fB\\-\\-backtrace\\fR=\\fI\\,[OUT]\\/\\fR\nEnable full backtrace.  \\fIOUT\\fR can be stderr (default) or stdout.\n.TP\n\\fB\\-t\\fR, \\fB\\-\\-trace\\fR=\\fI\\,[OUT]\\/\\fR\nTurn on invoke/execute tracing, enable full backtrace. \\fIOUT\\fR can be stderr (default) or stdout.\n.TP\n\\fB\\-\\-suppress\\-backtrace\\fR \\fIPATTERN\\fR\nSuppress backtrace lines matching regexp \\fIPATTERN\\fR. Ignored if \\fI\\-\\-trace\\fR is on.\n.TP\n\\fB\\-\\-rules\\fR\nTrace the rules resolution.\n\n.TP\n\\fB\\-n\\fR, \\fB\\-\\-dry\\-run\\fR\nDo a dry run without executing actions.\n.TP\n\\fB\\-T\\fR, \\fB\\-\\-tasks\\fR [\\fIPATTERN\\fR]\nDisplay the tasks (matching optional \\fIPATTERN\\fR) with descriptions, then exit.\n.TP\n\\fB\\-D\\fR, \\fB\\-\\-describe\\fR [\\fIPATTERN\\fR]\nDescribe the tasks (matching optional \\fIPATTERN\\fR), then exit.\n.TP\n\\fB\\-W\\fR, \\fB\\-\\-where\\fR [\\fIPATTERN\\fR]\nDescribe the tasks (matching optional \\fIPATTERN\\fR), then exit.\n.TP\n\\fB\\-P\\fR, \\fB\\-\\-prereqs\\fR\nDisplay the tasks and dependencies, then exit.\n\n.TP\n\\fB\\-e\\fR, \\fB\\-\\-execute\\fR \\fICODE\\fR\nExecute some Ruby code and exit.\n.TP\n\\fB\\-p\\fR, \\fB\\-\\-execute\\-print\\fR \\fICODE\\fR\nExecute some Ruby code, print the result, then exit.\n.TP\n\\fB\\-E\\fR, \\fB\\-\\-execute\\-continue\\fR \\fICODE\\fR\nExecute some Ruby code, then continue with normal task processing.\n\n.SS Information\n.TP\n\\fB\\-v\\fR, \\fB\\-\\-verbose\\fR\nLog message to standard output.\n.TP\n\\fB\\-q\\fR, \\fB\\-\\-quiet\\fR\nDo not log messages to standard output.\n.TP\n\\fB\\-s\\fR, \\fB\\-\\-silent\\fR\nLike \\fB\\-\\-quiet\\fR, but also suppresses the 'in directory' announcement.\n.TP\n\\fB\\-X\\fR, \\fB\\-\\-no\\-deprecation\\-warnings\\fR\nDisable the deprecation warnings.\n.TP\n\\fB\\-\\-comments\\fR\nShow commented tasks only\n.TP\n\\fB\\-A\\fR, \\fB\\-\\-all\\fR\nShow all tasks, even uncommented ones (in combination with \\fB\\-T\\fR or \\fB\\-D\\fR)\n.TP\n\\fB\\-\\-job\\-stats\\fR [\\fILEVEL\\fR]\nDisplay job statistics. LEVEL=\\fIhistory\\fR displays a complete job list\n.TP\n\\fB\\-V\\fR, \\fB\\-\\-version\\fR\nDisplay the program version.\n.TP\n\\fB\\-h\\fR, \\fB\\-H\\fR, \\fB\\-\\-help\\fR\nDisplay a help message.\n\n.SH SEE ALSO\nThe complete documentation for \\fBrake\\fR has been installed at \\fI/usr/share/doc/rake-doc/html/index.html\\fR. It is also available online at \\fIhttp://docs.seattlerb.org/rake\\fR.\n.SH AUTHOR\n.B rake\nwas written by Jim Weirich <jim@weirichhouse.org> \n.PP\nThis manual was created by Caitlin Matos <caitlin.matos@zoho.com> for the Debian project (but may be used by others). It was inspired by the manual by Jani Monoses <jani@iv.ro> for the Ubuntu project.\n",
+					"file": "/home/cm/rake.1",
+					"file_size": 4617,
+					"file_write_time": 1409239724000000,
+					"settings":
+					{
+						"buffer_size": 4617,
+						"line_ending": "Unix"
+					}
+				},
+				{
+					"file": "/home/cm/.mutt/muttrc",
+					"settings":
+					{
+						"buffer_size": 1390,
+						"line_ending": "Unix"
+					}
+				},
+				{
+					"file": "/home/cm/bin/gbp-dsc",
+					"settings":
+					{
+						"buffer_size": 1544,
+						"line_ending": "Unix"
+					}
+				},
+				{
+					"file": "/usr/lib/prezto/modules/prompt/functions/prompt_garrett_setup",
+					"settings":
+					{
+						"buffer_size": 15872,
+						"line_ending": "Unix"
+					}
+				},
+				{
+					"settings":
+					{
+						"buffer_size": 0,
+						"line_ending": "Unix"
+					}
+				},
+				{
+					"file": "/home/cm/debian/attic/attic/attic/_hashindex.c",
+					"settings":
+					{
+						"buffer_size": 10625,
+						"line_ending": "Unix"
+					}
+				}
+			],
+			"build_system": "Packages/Python/Python.sublime-build",
+			"command_palette":
+			{
+				"height": 318.0,
+				"selected_items":
+				[
+					[
+						"Package Control: ",
+						"Package Control: Install Package"
+					],
+					[
+						"Package Control: ins",
+						"Package Control: Install Package"
+					],
+					[
+						"p",
+						"Package Control: Install Package"
+					],
+					[
+						"Package Control: in",
+						"Package Control: Install Package"
+					],
+					[
+						"package",
+						"Package Control: List Packages"
+					],
+					[
+						"ins",
+						"Package Control: Install Package"
+					],
+					[
+						"pack",
+						"Package Control: Disable Package"
+					],
+					[
+						"togg",
+						"View: Toggle Minimap"
+					],
+					[
+						"Package Control: i",
+						"Package Control: Install Package"
+					],
+					[
+						"in",
+						"Package Control: Install Package"
+					],
+					[
+						"Package Control: re",
+						"Package Control: Remove Package"
+					],
+					[
+						"Package Control: dis",
+						"Package Control: Disable Package"
+					],
+					[
+						"schem",
+						"Schemr: List all schemes"
+					],
+					[
+						"inst",
+						"Package Control: Install Package"
+					],
+					[
+						"Package Control: r",
+						"Package Control: Remove Package"
+					],
+					[
+						"selector",
+						"ColorSchemeSelector: Next Color Scheme"
+					],
+					[
+						"Package Control: l",
+						"Package Control: List Packages"
+					],
+					[
+						"minim",
+						"View: Toggle Minimap"
+					]
+				],
+				"width": 570.0
+			},
+			"console":
+			{
+				"height": 213.0
+			},
+			"distraction_free":
+			{
+				"menu_visible": true,
+				"show_minimap": false,
+				"show_open_files": false,
+				"show_tabs": false,
+				"side_bar_visible": false,
+				"status_bar_visible": false
+			},
+			"file_history":
+			[
+				"/home/cm/debian/attic/attic-armel.tmp",
+				"/home/cm/debian/jgraph-again/jgraph/show.c.rej",
+				"/home/cm/debian/jgraph-again/jgraph/jgraph.c",
+				"/home/cm/debian/jgraph-again/jgraph/jgraph.h",
+				"/home/cm/.zhistory",
+				"/home/cm/tmp/tmp.diff",
+				"/home/cm/debian/attic-new/attic/debian/watch",
+				"/home/cm/bin/termcolors",
+				"/home/cm/debian/attic-new/attic/attic/_hashindex.c",
+				"/home/cm/debian/attic-new/attic/debian/patches/armel-endian.diff",
+				"/home/cm/debian/kst/kst/src/libkstapp/plotrenderitem.cpp.rej",
+				"/home/cm/debian/jgraph-again/jgraph/debian/patches/10-jgraph-c.patch",
+				"/home/cm/debian/jgraph-again/jgraph/printline.c.rej",
+				"/home/cm/debian/jgraph-again/jgraph/list.h.rej",
+				"/home/cm/debian/jgraph-again/jgraph/list.c.rej",
+				"/home/cm/debian/jgraph-again/jgraph/debian/patches/pre-quilt.patch",
+				"/home/cm/debian/jgraph-again/jgraph/edit.c.rej",
+				"/home/cm/debian/jgraph-again/jgraph/process.c.rej",
+				"/home/cm/debian/jgraph-again/jgraph/draw.c.rej",
+				"/home/cm/debian/jgraph-again/jgraph/jgraph.c.rej",
+				"/home/cm/debian/jgraph-again/jgraph/prio_list.h.rej",
+				"/home/cm/debian/jgraph-again/jgraph/prio_list.c.rej",
+				"/home/cm/debian/jgraph-again/jgraph/jgraph.h.rej",
+				"/home/cm/debian/jgraph-again/jgraph/debian/patches/13-process.patch",
+				"/home/cm/debian/jgraph-again/jgraph/debian/patches/12-edit.patch",
+				"/home/cm/debian/jgraph-again/jgraph/d/p/12-edit.patch",
+				"/home/cm/debian/jgraph-again/jgraph/debian/patches/11-draw.patch",
+				"/home/cm/debian/jgraph-again/jgraph/debian/patches/09-jgraph-h.patch",
+				"/home/cm/debian/jgraph-again/jgraph/debian/patches/08-makefile.patch",
+				"/home/cm/debian/jgraph-again/jgraph/debian/patches/07-complex-examples.patch",
+				"/home/cm/debian/jgraph-again/jgraph/06-extras.patch",
+				"/home/cm/debian/jgraph-again/jgraph/debian/patches/05-prio-list.patch",
+				"/home/cm/debian/jgraph-newest/jgraph/debian/patches/01-convert-octal.patch",
+				"/home/cm/debian/jgraph-newest/jgraph/debian/patches/series",
+				"/home/cm/debian/ruby/tomdoc/ruby-tomdoc/test/source_parser_test.rb",
+				"/home/cm/.config/sublime-text-2/Packages/RubyTest/Default (Linux).sublime-keymap",
+				"/home/cm/debian/ruby/tomdoc/ruby-tomdoc/test/fixtures/chimney.rb",
+				"/home/cm/debian/jgraph-again/jgraph_83-22.diff",
+				"/home/cm/debian/jgraph/jgraph/debian/patches/pre-quilt.patch",
+				"/home/cm/debian/jgraph-newest/jgraph/debian/patches/pre-quilt.patch",
+				"/home/cm/debian/jgraph-newest/jgraph/debian/patches/06-process.patch",
+				"/home/cm/debian/jgraph-newest/jgraph/debian/patches/05-show.patch",
+				"/home/cm/debian/jgraph-newest/jgraph/debian/patches/04-token.patch",
+				"/home/cm/debian/jgraph-newest/jgraph/debian/patches/03-iso-bounding-box.patch",
+				"/home/cm/debian/jgraph-newest/jgraph/debian/patches/04-eps.patch",
+				"/home/cm/debian/jgraph-newest/jgraph/debian/patches/02-manpage.patch",
+				"/home/cm/debian/jgraph-newest/jgraph/debian/patches/03-expanding-bounding-box.patch",
+				"/home/cm/debian/jgraph-newest/jgraph/debian/patches/manpage.patch",
+				"/home/cm/debian/socnetv/socnetv/src/mainwindow.cpp",
+				"/home/cm/debian/jgraph-newest/jgraph-83.orig/debian/patches/pre-quilt.patch",
+				"/home/cm/debian/jgraph-new/jgraph-83.orig/debian/patches/pre-quilt.patch",
+				"/home/cm/rake.1",
+				"/home/cm/debian/ruby/rake/rake/doc/rake.1",
+				"/home/cm/.config/sublime-text-2/Packages/RubyTest/Default.sublime-keymap",
+				"/home/cm/.config/sublime-text-2/Packages/RubyTest/RubyTest.sublime-settings",
+				"/home/cm/debian/science/apertium/apertium/config.guess.rej",
+				"/home/cm/debian/science/apertium/apertium/config.sub.rej",
+				"/home/cm/debian/science/apertium/apertium/debian/patches/debian-changes-3.1.0-1.3",
+				"/home/cm/debian/science/apertium/apertium/debian/patches/debian-changes-3.1.0-1.2",
+				"/home/cm/debian/science/apertium/apertium/configure.rej",
+				"/home/cm/debian/science/apertium/apertium/apertium/apertium-header.sh",
+				"/home/cm/.config/sublime-text-2/Packages/Theme - Nil/Tubnil.tmTheme",
+				"/home/cm/debian/science/apertium/apertium/apertium/apertium-header.sh.rej",
+				"/home/cm/debian/science/root-system/root-system/debian/skel/libroot-bindings-python.install.in",
+				"/home/cm/debian/science/root-system/root-system/debian/rules",
+				"/home/cm/debian/science/freefoam/freefoam/diff.patch",
+				"/home/cm/debian/ruby/hikidoc/ruby-hikidoc/debian/changelog",
+				"/home/cm/debian/ruby/sup/sup-mail/test/test_message.rb",
+				"/home/cm/debian/ruby/sup/sup-mail/bin/sup",
+				"/home/cm/debian/ruby/sup/sup-mail/lib/sup.rb",
+				"/home/cm/debian/ruby/sup/sup-mail/test/dummy_source.rb",
+				"/home/cm/bin/gbp-dsc",
+				"/home/cm/bin/gbpc",
+				"/home/cm/.config/sublime-text-2/Packages/User/ApplySyntax.sublime-settings",
+				"/home/cm/debian/science/root-system/root-system/debian/script/makebuilddepend.sh",
+				"/home/cm/debian/science/root-system/root-system/build/package/common/libroot-bindings-python.control",
+				"/home/cm/debian/science/root-system/root-system/build/package/debian/rules",
+				"/home/cm/debian/science/root-system/root-system/build/package/debian/control",
+				"/home/cm/debian/science/root-system/root-system/build/package/lib/makebuilddepend.sh",
+				"/home/cm/debian/science/root-system/root-system/configure",
+				"/home/cm/debian/science/root-system/root-system/debian/skel/libroot-bindings-ruby-dev.links.in",
+				"/home/cm/debian/science/root-system/root-system/debian/skel/libroot-bindings-python.links.in",
+				"/home/cm/debian/science/root-system/root-system/debian/skel/libroot-bindings-ruby.control",
+				"/home/cm/debian/science/root-system/root-system/debian/skel/libroot-bindings-python.control",
+				"/home/cm/debian/science/root-system/root-system/debian/control",
+				"/home/cm/debian/science/root-system/root-system/bindings/ruby/src/rrcommon.h",
+				"/home/cm/debian/science/root-system/root-system/bindings/doc/v528/index.html",
+				"/home/cm/frame.step.mesh.output",
+				"/home/cm/debian/ruby/UNSURE/shoulda-matchers/ruby-shoulda-matchers/debian/control",
+				"/home/cm/.pbuilderrc",
+				"/home/cm/debian/science/freefoam/diff.patch",
+				"/home/cm/debian/ruby/request-store/ruby-request-store/ruby-request-store/debian/copyright",
+				"/home/cm/debian/ruby/sup/sup-mail/test/test_header_parsing.rb",
+				"/home/cm/.config/obmenu-generator/config.pl",
+				"/home/cm/.config/obmenu-generator/schema.pl",
+				"/home/cm/.config/tint2/tint2rc",
+				"/usr/share/adeskbar/default.cfg",
+				"/home/cm/debian/cdu/cdu-0.37/cdu",
+				"/home/cm/.config/sublime-text-2/Packages/XML/XML.tmLanguage",
+				"/home/cm/.config/sublime-text-2/Packages/ApplySyntax/ApplySyntax.sublime-settings",
+				"/home/cm/debian/json2csv/json2csv.py",
+				"/usr/lib/prezto/modules/prompt/functions/prompt_skittleysVCS_setup",
+				"/home/cm/debian/ferret/ferret/debian/patches/01_fix_patchs.patch",
+				"/usr/lib/prezto/modules/prompt/functions/prompt_pnelsonVCS_setup",
+				"/usr/lib/prezto/modules/prompt/functions/prompt_wordy_setup",
+				"/home/cm/debian/json2csv/upstream-status.json.cgi",
+				"/home/cm/debian/json2csv/upstream.map",
+				"/tmp/control",
+				"/home/cm/debian/docweb/docbook-website/debian/history.txt",
+				"/home/cm/debian/sepwatch/trunk/functions/prompt_pnelsonVCS_setup",
+				"/usr/lib/prezto/modules/prompt/init.zsh",
+				"/home/cm/debian/json2csv/upstream-status.csv",
+				"/home/cm/debian/last-attic/attic/debian/control",
+				"/home/cm/bin/compress",
+				"/home/cm/debian/last-attic/attic/debian/rules",
+				"/home/cm/debian/last-attic/attic/debian/copyright",
+				"/home/cm/debian/last-attic/attic/debian/compat",
+				"/home/cm/debian/attic-tmp/attic-git-update/debian/rules",
+				"/home/cm/debian/attic-tmp/attic-git-update/docs/h2m",
+				"/home/cm/debian/rules.attic.tmp",
+				"/home/cm/attic.1",
+				"/usr/share/man/man1/info.1.gz",
+				"/home/cm/debian/attic-tmp/attic-git-update/docs/tmp.1",
+				"/home/cm/debian/attic-git-update/debian/rules",
+				"/usr/lib/prezto/modules/prompt/functions/prompt_skittleys_setup",
+				"/home/cm/builds/obgen/obmenu-generator-0.59/obmenu-generator-new",
+				"/home/cm/bin/git-dirty",
+				"/home/cm/.pbuilderrc-wheezy"
+			],
+			"find":
+			{
+				"height": 41.0
+			},
+			"find_in_files":
+			{
+				"height": 0.0,
+				"where_history":
+				[
+				]
+			},
+			"find_state":
+			{
+				"case_sensitive": false,
+				"find_history":
+				[
+					"debian",
+					"ps",
+					"EPS",
+					"fR",
+					"Bounding",
+					"\\+\\+\\+ a/",
+					"\\+\\+\\+ jgraph-83/",
+					"--- jgraph-83.orig/",
+					"debian",
+					"7bit",
+					"\\+\\+\\+ jgraph-83/",
+					"+++ jgraph-83/",
+					"--- jgraph-83.orig/",
+					"Diff",
+					"libroot-bindings-python",
+					"python",
+					"libroot-bindings-python",
+					"libroot-bindings-ruby",
+					"libroot-bindings-python",
+					"libroot-bindings-ruby",
+					"libroot-bindings-python",
+					"python",
+					"ruby-root-bindings",
+					"uby-r",
+					"ruby",
+					"from sea to",
+					"%\\{\\$reset_color",
+					"%\\{\\$fg\\[(\\w+)\\]",
+					"%\\{$fg\\[",
+					"%{$fg[\n",
+					"collect\n",
+					"collect",
+					"Z",
+					"test",
+					"calibri",
+					"status",
+					"git diff",
+					"a348b1",
+					"selected_bg",
+					"d64937",
+					"entity.name.function",
+					"interrog",
+					"list-col",
+					"man",
+					"branch",
+					"SCHEMA",
+					"name_keys",
+					"schema",
+					"-F",
+					"prompt_segment",
+					"^",
+					"constant",
+					"support",
+					"variable",
+					"$",
+					"from-key",
+					"keyword.control.spec",
+					"variable.spec",
+					"keyword.spec",
+					"scope",
+					"%{",
+					"C:",
+					"rprompt",
+					"caitlin",
+					"%{",
+					"fg",
+					"bg",
+					"caitlin",
+					"overwrite",
+					"overwrite\noverwrite",
+					"key",
+					"key\nkey",
+					"preexec",
+					"brackethigh",
+					"solid",
+					"prompt_end",
+					"prompt",
+					"z",
+					"zstyle",
+					"z",
+					"prezto",
+					"z",
+					"keyword.spec",
+					"ctrl+shift+up",
+					"alt",
+					"ctrl",
+					"multi",
+					" #",
+					"zstyle",
+					"make_parser",
+					"sys",
+					"iterparse",
+					"sidebar",
+					"fold_",
+					"fold",
+					"theme"
+				],
+				"highlight": true,
+				"in_selection": false,
+				"preserve_case": false,
+				"regex": true,
+				"replace_history":
+				[
+					"--- a/",
+					"+++ b/",
+					"+++ a/",
+					"+++ b/",
+					"--- b/",
+					"--- a/",
+					"python-root",
+					"ruby-root",
+					"python-root",
+					"ruby-root",
+					"python-root",
+					"ruby-root",
+					"%{%f",
+					"%{%F{\\1}",
+					"%{%F{",
+					"xz",
+					"Carlito",
+					"a172d2",
+					"a348b1",
+					"keyword.control.debsyntax",
+					"variable.debsyntax",
+					"keyword.debsyntax",
+					"skittleys",
+					"fog",
+					"bog",
+					"skittleys"
+				],
+				"reverse": false,
+				"show_context": true,
+				"use_buffer2": true,
+				"whole_word": false,
+				"wrap": true
+			},
+			"folders":
+			[
+				{
+					"path": "/home/cm/debian"
+				},
+				{
+					"path": "/usr/lib/prezto"
+				}
+			],
+			"groups":
+			[
+				{
+					"selected": 5,
+					"sheets":
+					[
+						{
+							"buffer": 0,
+							"file": "/home/cm/rake.1",
+							"settings":
+							{
+								"buffer_size": 4617,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										1307,
+										1307
+									]
+								],
+								"settings":
+								{
+									"annotations":
+									[
+										"TODO",
+										"README",
+										"FIXME"
+									],
+									"csslint_options":
+									{
+										"adjoining-classes": "warning",
+										"box-model": true,
+										"box-sizing": "warning",
+										"compatible-vendor-prefixes": "warning",
+										"display-property-grouping": true,
+										"duplicate-background-images": "warning",
+										"duplicate-properties": true,
+										"empty-rules": true,
+										"errors": true,
+										"fallback-colors": "warning",
+										"floats": "warning",
+										"font-faces": "warning",
+										"font-sizes": "warning",
+										"gradients": "warning",
+										"ids": "warning",
+										"import": "warning",
+										"important": "warning",
+										"known-properties": true,
+										"outline-none": "warning",
+										"overqualified-elements": "warning",
+										"qualified-headings": "warning",
+										"regex-selectors": "warning",
+										"rules-count": "warning",
+										"shorthand": "warning",
+										"star-property-hack": "warning",
+										"text-indent": "warning",
+										"underscore-property-hack": "warning",
+										"unique-headings": "warning",
+										"universal-selector": "warning",
+										"vendor-prefix": true,
+										"zero-units": "warning"
+									},
+									"gjslint_ignore":
+									[
+										110
+									],
+									"gjslint_options":
+									[
+									],
+									"javascript_linter": "jshint",
+									"jshint_options":
+									{
+										"browser": true,
+										"evil": true,
+										"regexdash": true,
+										"sub": true,
+										"trailing": true,
+										"wsh": true
+									},
+									"pep8": true,
+									"pep8_ignore":
+									[
+										"E501"
+									],
+									"perl_linter": "perlcritic",
+									"pyflakes_ignore":
+									[
+									],
+									"pyflakes_ignore_import_*": true,
+									"sublimelinter": true,
+									"sublimelinter_delay": 2,
+									"sublimelinter_disable":
+									[
+									],
+									"sublimelinter_executable_map":
+									{
+									},
+									"sublimelinter_fill_outlines": false,
+									"sublimelinter_gutter_marks": true,
+									"sublimelinter_gutter_marks_theme": "simple",
+									"sublimelinter_mark_style": "none",
+									"sublimelinter_notes": false,
+									"sublimelinter_objj_check_ascii": false,
+									"sublimelinter_popup_errors_on_save": false,
+									"sublimelinter_syntax_map":
+									{
+										"C++": "c",
+										"Python Django": "python",
+										"Ruby on Rails": "ruby"
+									},
+									"sublimelinter_wrap_find": true,
+									"syntax": "Packages/Man Page Support/man-groff.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 1,
+							"file": "/home/cm/.mutt/muttrc",
+							"settings":
+							{
+								"buffer_size": 1390,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										937,
+										937
+									]
+								],
+								"settings":
+								{
+									"annotations":
+									[
+										"TODO",
+										"README",
+										"FIXME"
+									],
+									"csslint_options":
+									{
+										"adjoining-classes": "warning",
+										"box-model": true,
+										"box-sizing": "warning",
+										"compatible-vendor-prefixes": "warning",
+										"display-property-grouping": true,
+										"duplicate-background-images": "warning",
+										"duplicate-properties": true,
+										"empty-rules": true,
+										"errors": true,
+										"fallback-colors": "warning",
+										"floats": "warning",
+										"font-faces": "warning",
+										"font-sizes": "warning",
+										"gradients": "warning",
+										"ids": "warning",
+										"import": "warning",
+										"important": "warning",
+										"known-properties": true,
+										"outline-none": "warning",
+										"overqualified-elements": "warning",
+										"qualified-headings": "warning",
+										"regex-selectors": "warning",
+										"rules-count": "warning",
+										"shorthand": "warning",
+										"star-property-hack": "warning",
+										"text-indent": "warning",
+										"underscore-property-hack": "warning",
+										"unique-headings": "warning",
+										"universal-selector": "warning",
+										"vendor-prefix": true,
+										"zero-units": "warning"
+									},
+									"gjslint_ignore":
+									[
+										110
+									],
+									"gjslint_options":
+									[
+									],
+									"javascript_linter": "jshint",
+									"jshint_options":
+									{
+										"browser": true,
+										"evil": true,
+										"regexdash": true,
+										"sub": true,
+										"trailing": true,
+										"wsh": true
+									},
+									"pep8": true,
+									"pep8_ignore":
+									[
+										"E501"
+									],
+									"perl_linter": "perlcritic",
+									"pyflakes_ignore":
+									[
+									],
+									"pyflakes_ignore_import_*": true,
+									"sublimelinter": true,
+									"sublimelinter_delay": 2,
+									"sublimelinter_disable":
+									[
+									],
+									"sublimelinter_executable_map":
+									{
+									},
+									"sublimelinter_fill_outlines": false,
+									"sublimelinter_gutter_marks": true,
+									"sublimelinter_gutter_marks_theme": "simple",
+									"sublimelinter_mark_style": "none",
+									"sublimelinter_notes": false,
+									"sublimelinter_objj_check_ascii": false,
+									"sublimelinter_popup_errors_on_save": false,
+									"sublimelinter_syntax_map":
+									{
+										"C++": "c",
+										"Python Django": "python",
+										"Ruby on Rails": "ruby"
+									},
+									"sublimelinter_wrap_find": true,
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 2,
+							"file": "/home/cm/bin/gbp-dsc",
+							"settings":
+							{
+								"buffer_size": 1544,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										448,
+										448
+									]
+								],
+								"settings":
+								{
+									"annotations":
+									[
+										"TODO",
+										"README",
+										"FIXME"
+									],
+									"csslint_options":
+									{
+										"adjoining-classes": "warning",
+										"box-model": true,
+										"box-sizing": "warning",
+										"compatible-vendor-prefixes": "warning",
+										"display-property-grouping": true,
+										"duplicate-background-images": "warning",
+										"duplicate-properties": true,
+										"empty-rules": true,
+										"errors": true,
+										"fallback-colors": "warning",
+										"floats": "warning",
+										"font-faces": "warning",
+										"font-sizes": "warning",
+										"gradients": "warning",
+										"ids": "warning",
+										"import": "warning",
+										"important": "warning",
+										"known-properties": true,
+										"outline-none": "warning",
+										"overqualified-elements": "warning",
+										"qualified-headings": "warning",
+										"regex-selectors": "warning",
+										"rules-count": "warning",
+										"shorthand": "warning",
+										"star-property-hack": "warning",
+										"text-indent": "warning",
+										"underscore-property-hack": "warning",
+										"unique-headings": "warning",
+										"universal-selector": "warning",
+										"vendor-prefix": true,
+										"zero-units": "warning"
+									},
+									"gjslint_ignore":
+									[
+										110
+									],
+									"gjslint_options":
+									[
+									],
+									"javascript_linter": "jshint",
+									"jshint_options":
+									{
+										"browser": true,
+										"evil": true,
+										"regexdash": true,
+										"sub": true,
+										"trailing": true,
+										"wsh": true
+									},
+									"pep8": true,
+									"pep8_ignore":
+									[
+										"E501"
+									],
+									"perl_linter": "perlcritic",
+									"pyflakes_ignore":
+									[
+									],
+									"pyflakes_ignore_import_*": true,
+									"sublimelinter": true,
+									"sublimelinter_delay": 2,
+									"sublimelinter_disable":
+									[
+									],
+									"sublimelinter_executable_map":
+									{
+									},
+									"sublimelinter_fill_outlines": false,
+									"sublimelinter_gutter_marks": true,
+									"sublimelinter_gutter_marks_theme": "simple",
+									"sublimelinter_mark_style": "none",
+									"sublimelinter_notes": false,
+									"sublimelinter_objj_check_ascii": false,
+									"sublimelinter_popup_errors_on_save": false,
+									"sublimelinter_syntax_map":
+									{
+										"C++": "c",
+										"Python Django": "python",
+										"Ruby on Rails": "ruby"
+									},
+									"sublimelinter_wrap_find": true,
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 3,
+							"file": "/usr/lib/prezto/modules/prompt/functions/prompt_garrett_setup",
+							"settings":
+							{
+								"buffer_size": 15872,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										21,
+										21
+									]
+								],
+								"settings":
+								{
+									"annotations":
+									[
+										"TODO",
+										"README",
+										"FIXME"
+									],
+									"csslint_options":
+									{
+										"adjoining-classes": "warning",
+										"box-model": true,
+										"box-sizing": "warning",
+										"compatible-vendor-prefixes": "warning",
+										"display-property-grouping": true,
+										"duplicate-background-images": "warning",
+										"duplicate-properties": true,
+										"empty-rules": true,
+										"errors": true,
+										"fallback-colors": "warning",
+										"floats": "warning",
+										"font-faces": "warning",
+										"font-sizes": "warning",
+										"gradients": "warning",
+										"ids": "warning",
+										"import": "warning",
+										"important": "warning",
+										"known-properties": true,
+										"outline-none": "warning",
+										"overqualified-elements": "warning",
+										"qualified-headings": "warning",
+										"regex-selectors": "warning",
+										"rules-count": "warning",
+										"shorthand": "warning",
+										"star-property-hack": "warning",
+										"text-indent": "warning",
+										"underscore-property-hack": "warning",
+										"unique-headings": "warning",
+										"universal-selector": "warning",
+										"vendor-prefix": true,
+										"zero-units": "warning"
+									},
+									"gjslint_ignore":
+									[
+										110
+									],
+									"gjslint_options":
+									[
+									],
+									"javascript_linter": "jshint",
+									"jshint_options":
+									{
+										"browser": true,
+										"evil": true,
+										"regexdash": true,
+										"sub": true,
+										"trailing": true,
+										"wsh": true
+									},
+									"pep8": true,
+									"pep8_ignore":
+									[
+										"E501"
+									],
+									"perl_linter": "perlcritic",
+									"pyflakes_ignore":
+									[
+									],
+									"pyflakes_ignore_import_*": true,
+									"sublimelinter": true,
+									"sublimelinter_delay": 2,
+									"sublimelinter_disable":
+									[
+									],
+									"sublimelinter_executable_map":
+									{
+									},
+									"sublimelinter_fill_outlines": false,
+									"sublimelinter_gutter_marks": true,
+									"sublimelinter_gutter_marks_theme": "simple",
+									"sublimelinter_mark_style": "none",
+									"sublimelinter_notes": false,
+									"sublimelinter_objj_check_ascii": false,
+									"sublimelinter_popup_errors_on_save": false,
+									"sublimelinter_syntax_map":
+									{
+										"C++": "c",
+										"Python Django": "python",
+										"Ruby on Rails": "ruby"
+									},
+									"sublimelinter_wrap_find": true,
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+									"tab_size": 2,
+									"translate_tabs_to_spaces": true
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 4,
+							"settings":
+							{
+								"buffer_size": 0,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										0,
+										0
+									]
+								],
+								"settings":
+								{
+									"annotations":
+									[
+										"TODO",
+										"README",
+										"FIXME"
+									],
+									"csslint_options":
+									{
+										"adjoining-classes": "warning",
+										"box-model": true,
+										"box-sizing": "warning",
+										"compatible-vendor-prefixes": "warning",
+										"display-property-grouping": true,
+										"duplicate-background-images": "warning",
+										"duplicate-properties": true,
+										"empty-rules": true,
+										"errors": true,
+										"fallback-colors": "warning",
+										"floats": "warning",
+										"font-faces": "warning",
+										"font-sizes": "warning",
+										"gradients": "warning",
+										"ids": "warning",
+										"import": "warning",
+										"important": "warning",
+										"known-properties": true,
+										"outline-none": "warning",
+										"overqualified-elements": "warning",
+										"qualified-headings": "warning",
+										"regex-selectors": "warning",
+										"rules-count": "warning",
+										"shorthand": "warning",
+										"star-property-hack": "warning",
+										"text-indent": "warning",
+										"underscore-property-hack": "warning",
+										"unique-headings": "warning",
+										"universal-selector": "warning",
+										"vendor-prefix": true,
+										"zero-units": "warning"
+									},
+									"gjslint_ignore":
+									[
+										110
+									],
+									"gjslint_options":
+									[
+									],
+									"javascript_linter": "jshint",
+									"jshint_options":
+									{
+										"browser": true,
+										"evil": true,
+										"regexdash": true,
+										"sub": true,
+										"trailing": true,
+										"wsh": true
+									},
+									"pep8": true,
+									"pep8_ignore":
+									[
+										"E501"
+									],
+									"perl_linter": "perlcritic",
+									"pyflakes_ignore":
+									[
+									],
+									"pyflakes_ignore_import_*": true,
+									"sublimelinter": true,
+									"sublimelinter_delay": 2,
+									"sublimelinter_disable":
+									[
+									],
+									"sublimelinter_executable_map":
+									{
+									},
+									"sublimelinter_fill_outlines": false,
+									"sublimelinter_gutter_marks": true,
+									"sublimelinter_gutter_marks_theme": "simple",
+									"sublimelinter_mark_style": "none",
+									"sublimelinter_notes": false,
+									"sublimelinter_objj_check_ascii": false,
+									"sublimelinter_popup_errors_on_save": false,
+									"sublimelinter_syntax_map":
+									{
+										"C++": "c",
+										"Python Django": "python",
+										"Ruby on Rails": "ruby"
+									},
+									"sublimelinter_wrap_find": true,
+									"syntax": "Packages/Text/Plain text.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 5,
+							"file": "/home/cm/debian/attic/attic/attic/_hashindex.c",
+							"settings":
+							{
+								"buffer_size": 10625,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										10625,
+										10625
+									]
+								],
+								"settings":
+								{
+									"annotations":
+									[
+										"TODO",
+										"README",
+										"FIXME"
+									],
+									"csslint_options":
+									{
+										"adjoining-classes": "warning",
+										"box-model": true,
+										"box-sizing": "warning",
+										"compatible-vendor-prefixes": "warning",
+										"display-property-grouping": true,
+										"duplicate-background-images": "warning",
+										"duplicate-properties": true,
+										"empty-rules": true,
+										"errors": true,
+										"fallback-colors": "warning",
+										"floats": "warning",
+										"font-faces": "warning",
+										"font-sizes": "warning",
+										"gradients": "warning",
+										"ids": "warning",
+										"import": "warning",
+										"important": "warning",
+										"known-properties": true,
+										"outline-none": "warning",
+										"overqualified-elements": "warning",
+										"qualified-headings": "warning",
+										"regex-selectors": "warning",
+										"rules-count": "warning",
+										"shorthand": "warning",
+										"star-property-hack": "warning",
+										"text-indent": "warning",
+										"underscore-property-hack": "warning",
+										"unique-headings": "warning",
+										"universal-selector": "warning",
+										"vendor-prefix": true,
+										"zero-units": "warning"
+									},
+									"gjslint_ignore":
+									[
+										110
+									],
+									"gjslint_options":
+									[
+									],
+									"javascript_linter": "jshint",
+									"jshint_options":
+									{
+										"browser": true,
+										"evil": true,
+										"regexdash": true,
+										"sub": true,
+										"trailing": true,
+										"wsh": true
+									},
+									"pep8": true,
+									"pep8_ignore":
+									[
+										"E501"
+									],
+									"perl_linter": "perlcritic",
+									"pyflakes_ignore":
+									[
+									],
+									"pyflakes_ignore_import_*": true,
+									"sublimelinter": true,
+									"sublimelinter_delay": 2,
+									"sublimelinter_disable":
+									[
+									],
+									"sublimelinter_executable_map":
+									{
+									},
+									"sublimelinter_fill_outlines": false,
+									"sublimelinter_gutter_marks": true,
+									"sublimelinter_gutter_marks_theme": "simple",
+									"sublimelinter_mark_style": "none",
+									"sublimelinter_notes": false,
+									"sublimelinter_objj_check_ascii": false,
+									"sublimelinter_popup_errors_on_save": false,
+									"sublimelinter_syntax_map":
+									{
+										"C++": "c",
+										"Python Django": "python",
+										"Ruby on Rails": "ruby"
+									},
+									"sublimelinter_wrap_find": true,
+									"syntax": "Packages/C++/C.tmLanguage",
+									"tab_size": 4,
+									"translate_tabs_to_spaces": true
+								},
+								"translation.x": 0.0,
+								"translation.y": 4444.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						}
+					]
+				}
+			],
+			"incremental_find":
+			{
+				"height": 0.0
+			},
+			"input":
+			{
+				"height": 0.0
+			},
+			"layout":
+			{
+				"cells":
+				[
+					[
+						0,
+						0,
+						1,
+						1
+					]
+				],
+				"cols":
+				[
+					0.0,
+					1.0
+				],
+				"rows":
+				[
+					0.0,
+					1.0
+				]
+			},
+			"menu_visible": true,
+			"output.exec":
+			{
+				"height": 152.0
+			},
+			"output.package_dev":
+			{
+				"height": 96.0
+			},
+			"position": "0,1,0,0,0,0,0,0,0,931,969",
+			"replace":
+			{
+				"height": 64.0
+			},
+			"save_all_on_build": true,
+			"select_file":
+			{
+				"height": 0.0,
+				"selected_items":
+				[
+					[
+						"",
+						"untitled"
+					]
+				],
+				"width": 0.0
+			},
+			"select_project":
+			{
+				"height": 500.0,
+				"selected_items":
+				[
+				],
+				"width": 380.0
+			},
+			"show_minimap": false,
+			"show_open_files": true,
+			"show_tabs": true,
+			"side_bar_visible": true,
+			"side_bar_width": 168.0,
+			"status_bar_visible": true,
+			"window_id": 1,
+			"workspace_name": ""
+		}
+	],
+	"workspaces":
+	{
+		"recent_workspaces":
+		[
+			"/home/cm/.config/sublime-text-2/prezto.sublime-project"
+		]
+	}
+}

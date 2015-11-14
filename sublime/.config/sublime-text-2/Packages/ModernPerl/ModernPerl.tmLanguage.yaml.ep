@@ -1,0 +1,1251 @@
+%#
+%# This is Extended Perl (EP) but you should view it with a YAML syntax highlighter
+%# EP is a template language that lets us use Perl to preprocess text (in this case YAML)
+%# For a guide to EP, see http://mojolicio.us/perldoc/Mojolicious/Guides/Rendering#Embedded_Perl
+%#
+---
+name: ModernPerl
+scopeName: source.perl
+comment: Blaise Roth <blaizer@cpan.org>
+uuid: 2c338cc8-a464-4ee4-a56c-d524947fa6f9
+fileTypes:
+- pl
+- PL
+- pm
+- pod
+- t
+firstLineMatch: |-
+    ^#!.*\bperl\b
+patterns:
+<% {
+    package ModernPerl::Scopes; # different package so that Carp works
+    use Carp;
+    use YAML::Any qw(LoadFile);
+
+    # I've separated the scopes from the language definition. The language below uses only the
+    # scopes defined here (well.. except for meta.whatever). I've broken it up enough and the list
+    # below is functionally flexible enough that you should be able to style everything to your
+    # needs without having to touch any real code.
+
+    our %scopes = (
+        map {
+            my $file = "ModernPerl-scopes-$_.yaml.ep";
+            my @documents;
+            @documents = LoadFile($file) if -f $file;
+            @documents > 1 and warn "Ignoring documents after first document in $file";
+            my $doc = $documents[0] // {};
+            ref $doc eq "HASH" or die "Top-level structure must be a dict in $file";
+            % $doc;
+        } qw/default user/
+    );
+
+    sub decode_scopes {
+        return '' if !defined $_[0];
+
+        our @stack;
+        $_[0] =~ s{\$(\w+)}{
+            exists $scopes{$1} or die "Reference to non-existant '\$$1' while decoding scopes";
+
+            grep $_ eq $1, @stack and die "Infinite recursion on '$_[0]' while decoding scopes";
+            {
+                push local(@stack), $1;
+                decode_scopes($scopes{$1});
+            }
+        }eg;
+
+        return $_[0];
+    }
+    decode_scopes($_) for values %scopes;
+
+    sub scope {
+        my $name = shift;
+        my $scope = join " ", map {
+            s/(^\w+)(.*)/$1/s;
+            exists $scopes{$_} or Carp::croak "Scope '$_' doesn't exist";
+            defined $scopes{$_} and length $scopes{$_} ? map("$_$2.perl", split /\s+/, $scopes{$_}) : "''";
+        } map $_, @_;
+        return "$name$scope";
+    }
+}
+
+    # using goto so that Carp blames the calling code
+    sub scope {
+        unshift @_, "";
+        goto &ModernPerl::Scopes::scope
+    }
+    # using a variable because $_M doesn't work otherwise
+    our $scope = sub {
+        # Needed to use rindex because I don't know of a fast regex solution to this...
+        # This just finds the level of indentation of the last line of YAML output so far
+        pos($_M) = rindex $_M, "\n";
+        $_M =~ /(\G\s*)/; # anchored regex is fast
+        unshift @_, "$1    name: ";
+        goto &ModernPerl::Scopes::scope
+    };
+
+    our ($open, $close, $bopen, $bclose);
+    our $i = 0;
+    sub quote_characters;
+=%>
+- include: '#line_comment'
+- include: '#pod'
+-
+    match: |-
+        (?x) [&%*][!\-~=] | && | \*\* | //
+    comment: >-
+        These would otherwise be highlighted as variables or regex,
+        but they're more likely to be an operator (or two).
+-
+    match: |
+        (?x)
+        ( & \g<identifier> )
+        |
+        (
+            \$\# (?:\$\s*)* \g<normal_identifier>
+            |
+            (?: [@$] \s* | [%*] )
+            (?<identifier>
+                (?:\$\s*)*
+                (?:
+                    # digit variable like $2
+                    (
+                        \d+
+                        |
+                        (?:::)+ \d+ (?!\w|::|'[^\W\d])
+                    )
+                    |
+                    { \s* \g<-1> \s* }
+                |
+                    (?<normal_identifier> # normal variable like $foo::bar'baz
+                        (
+                            (?:
+                                (?:::|'?[^\W\d]) \w*
+                            )++
+                        )
+                        |
+                        { \s* \g<-1> \s* }
+                    )
+                |
+                    # caret variable like $^W or ${^Word}
+                    (\^ [^\W\d\p{Lower}])
+                    |
+                    { \s* \g<-1> \w* \s* }
+                |
+                    # punctuation variable like $[
+                    ([^[^!-~]{\w\s])
+                    |
+                    { \s* \g<-1> \s* }
+                |
+                    # just highlight the sigil for something like ${ +arbitrary }
+                    (?={)
+                )
+            )
+        |
+            # these characters aren't another operator, so always highlight them as sigils
+            [@$] \s*
+        )
+    captures:
+        1:<%= $scope->('function.sigil') %>
+        2:<%= $scope->('variable') %>
+-
+    match: |-
+        (-?\b[^\W\d]\w*+)\s*+=>
+    captures:
+        1:<%= $scope->('string_autoquoted') %>
+    comment: >-
+        Turns out this operator needs to be really high up.
+        It always autoquotes word characters. It even autoquotes q=>=,
+        making it almost impossible to have a literal > at position 0 of a q==!
+        There is a way, though! CORE::q=>=. There's always a way!
+<%
+for (
+    [ 'qw?', "(')", 'meta.string.q.perl',  'string_single',   'single' ],
+    [ 'qq',  '(")', 'meta.string.qq.perl', 'string_double',   'double' ],
+    [ 'qx',  '(`)', 'meta.string.qx.perl', 'string_backtick', 'double',        'single' ],
+    [ 'qr',  undef, 'meta.regexp.qr.perl', 'string_regexp',   'double_regexp', 'single',   'adilmopsux' ],
+    [ 'm',   <<'#', 'meta.regexp.m.perl',  'string_regexp',   'double_regexp', 'single', 'acdgilmopsux' ],
+# Guessing whether a / is a division or the start of a regex is pretty tricky!
+        (?=\s*/) # optimisation to fail faster
+        (?:
+            # punctuation to expect before a /regex/
+            (?<=[^[^!-~]\w\s])
+            (?:
+                (?<=
+                    # binding operators - definitely a regex
+                    [=!~]~
+                    |
+                    # probably a regex
+                    [,;!({\[] | => | && | \|\|
+                )
+                |
+                # assignment - but not a mutator, comparison, or variable
+                (?<= = )
+                (?<! [*/%%%x+\-.=!<>&|^@$] = )
+            )
+        |
+            # named operators you'd expect before a /regex/
+            (?<=\w)
+            (?:
+                # never gonna be perfect with the limitations of lookbehinds, but this is close
+                (?<= if | or )                           %%2%
+                |
+                (?<= and | die | for | not | say | xor ) %%3%
+                |
+                (?<= exit | warn | when )                %%4%
+                |
+                (?<= print | split | until | while )     %%5%
+                |
+                (?<= return | unless )                   %%6%
+                |
+                (?<= defined | foreach )                 %%7%
+            )
+        )
+        \s*+ (\/)
+        |
+        # otherwise we can try for a single line /regex/ if it's after space
+        (\/) (?<=\s/|^/)
+        (?=
+            (?:
+                # something like / / is pretty common
+                \s+
+                |
+                # this means no spaces at the start or end unless they're backslashed
+                # so /\ woo regex\ / works
+                (?!\s) (?: [^\\/] | \\. )* (?: [^\s\\/] | \\. )
+            )
+            \/
+        )
+#
+) {
+    my ($keyword, $quote, $meta, $scope_key, $include, $single, $modifiers) = @$_;
+
+    my $q = defined $quote ? '\8' : '';
+    if ($keyword =~ /m/) {
+        $q .= '\9';
+
+        # gonna replace %%2%, %%3%, etc., in the m $quote above with some lookbehinds
+        sub regexp_m_lb {
+            my ($n) = @_;
+            my $core = sprintf '(?<=CORE::.{%d})', $n;
+            my $format = '(?<![\w\'@$&*%%].{%d}|::.{%1$d}|->.{%1$d})';
+            my $core_lb = sprintf $format, $n + length "CORE::";
+            my $lb = sprintf $format, $n;
+            return qq{
+                    (?: $core $core_lb | $lb )};
+        }
+        chomp $quote;
+        $quote =~ s{\s*%%(\d+)%\s*$}{regexp_m_lb $1}gme;
+    }
+%>\
+-
+    begin: |
+        (?x)
+        \b ( (?:CORE::)? <%= $keyword %> ) \s*
+        (?:
+            ( (\() | (<) | (\[) | ({) ) | ([^[^!-~]\w\s])
+        )
+        % if (defined $quote) { chomp $quote;
+        |
+        <%= $quote %>
+        % }
+    end: |
+        (?x)
+        (?:
+            ((?!\3)\)|(?!\4)>|(?!\5)\]|(?!\6)})
+            |
+            ([\7<%=$q%>[&&]])
+        )
+        % if (defined $modifiers) {
+        ([<%= $modifiers %>]*) (\w*)
+        % }
+    name: <%= $meta %>
+    beginCaptures:
+        1:<%= $scope->('keyword_string') %>
+        2:<%= $scope->('string_pair_begin') %>
+        7:<%= $scope->('string_quote_begin') %>
+        % if (defined $quote) {
+        8:<%= $scope->('string_quote_begin') %>
+        % } if ($keyword =~ /m/) {
+        9:<%= $scope->('string_quote_begin') %>
+        % }
+    % if (defined $scope_key) {
+    contentName: <%= scope $scope_key %>
+    % }
+    endCaptures:
+        1:<%= $scope->('string_pair_end') %>
+        2:<%= $scope->('string_quote_end') %>
+        % if (defined $modifiers) {
+        3:<%= $scope->('string_regexp_modifier') %>
+        4:<%= $scope->('invalid_modifier') %>
+        % }
+    patterns:
+    % if (defined $single) {
+    -
+        begin: |-
+            (?<=')
+        end: |-
+            (?=')
+        patterns:
+        - include: '#<%= $single %>'
+    % }
+    - include: '#<%= $include %>'
+% }
+<%
+for (
+    [ 's',        'meta.regexp.s.perl', 'double_or_single_regexp', 'double_or_single', 'acdegilmoprsux' ],
+    [ '(?:tr|y)', 'meta.tr.perl',       'double_or_single',        'double_or_single',           'cdrs' ],
+) {
+    my ($keyword, $meta, $first_include, $second_include, $modifiers) = @$_;
+%>\
+-
+    begin: |-
+        (?x) \b (?= ( (?:CORE::)? <%= $keyword %> ) \s* ([^[^!-~]\w\s]) )
+    end: |-
+        (?!\b\1\s*\2)
+    name: <%= $meta %>
+    patterns:
+    % while (quote_characters) {
+    % if ($bopen) {
+    -
+        begin: |-
+            (?x) ( (?:CORE::)?+ \w+ ) \s* (<%= $bopen %>)
+        end: |
+            (?x)
+            (?<!<%= $bopen %>)(?!<%= $bclose %>)
+            (?:
+                (?<!<%= $bclose %>|^)
+                (?:
+                    (?<![^\W[<%= $modifiers %>]])
+                    ([<%= $modifiers %>]*)
+                )?
+                (\w*)
+            )?
+        beginCaptures:
+            1:<%= $scope->('keyword_string') %>
+            2:<%= $scope->('string_pair_begin') %>
+        endCaptures:
+            1:<%= $scope->('string_regexp_modifier') %>
+            2:<%= $scope->('invalid_modifier') %>
+        patterns:
+        -
+            begin: |-
+                (?x) (<%= $bclose %>) (?: \s+ (\#.*) )? \s* \n
+            end: |
+                (?x)
+                (?:
+                    (?<=\S)
+                    |
+                    (?= ^ \s*+ [[^!-~]\w] )
+                )
+                (?:
+                    (?<=<%= $bclose %>)
+                    (?: ([<%= $modifiers %>]) | (\w) )
+                )?
+                <%= $bclose %>*
+            beginCaptures:
+                1:<%= $scope->('string_pair_end') %>
+                2:<%= $scope->('comment_line') %>
+            endCaptures:
+                1:<%= $scope->('string_regexp_modifier') %>
+                2:<%= $scope->('invalid_modifier') %>
+            patterns:
+            -
+                match: |-
+                   (?x) ^ \s* (\#.*)? \n
+                captures:
+                    1:<%= $scope->('comment_line') %>
+            -
+                begin: |
+                    (?x)
+                    ^ \s*
+                    (?:
+                        ( (\() | (<) | (\[) | ({) ) | ([^[^!-~]\w\s])
+                    )
+                end: |-
+                    ((?!\2)\)|(?!\3)>|(?!\4)\]|(?!\5)})|([\6[&&]])
+                beginCaptures:
+                    1:<%= $scope->('string_pair_begin') %>
+                    6:<%= $scope->('string_quote_begin') %>
+                endCaptures:
+                    1:<%= $scope->('string_pair_end') %>
+                    2:<%= $scope->('string_quote_end') %>
+                patterns:
+                - include: '#<%= $second_include %>'
+        -
+            begin: |
+                (?x)
+                (<%= $bclose %>) \s*
+                (?:
+                    ( (\() | (<) | (\[) | ({) ) | ([^[^!-~]\w\s])
+                )
+            end: |
+                (?x)
+                (?:
+                    ((?!\3)\)|(?!\4)>|(?!\5)\]|(?!\6)})|([\7[&&]])
+                )
+                (?:
+                    (?<=<%= $bclose %>)
+                    (?: ([<%= $modifiers %>]) | (\w) )
+                )?
+                <%= $bclose %>*
+            beginCaptures:
+                1:<%= $scope->('string_pair_end') %>
+                2:<%= $scope->('string_pair_begin') %>
+                7:<%= $scope->('string_quote_begin') %>
+            endCaptures:
+                1:<%= $scope->('string_pair_end') %>
+                2:<%= $scope->('string_quote_end') %>
+                3:<%= $scope->('string_regexp_modifier') %>
+                4:<%= $scope->('invalid_modifier') %>
+            patterns:
+            - include: '#<%= $second_include %>'
+        -
+            match: |-
+                <%= $bclose %>
+            name: <%= scope "string_pair_end" %>
+        -
+            begin: |-
+                (?<=<%= $bopen %>)
+            end: |-
+                (?=<%= $bclose %>)
+            patterns:
+            - include: '#<%= $first_include %>'
+    % } else {
+    -
+        begin: |-
+            (?x) (?= (?:CORE::)?+ \w+ \s* <%= $open %> )
+        end: |-
+            (?x) (<%= $open %>) ([<%= $modifiers %>]*) (\w*)
+        endCaptures:
+            1:<%= $scope->('string_quote_end') %>
+            2:<%= $scope->('string_regexp_modifier') %>
+            3:<%= $scope->('invalid_modifier') %>
+        patterns:
+        -
+            begin: |-
+                (?x) ( (?:CORE::)?+ \w+ ) \s* (<%= $open %>)
+            end: |
+                (?x)
+                (<%= $open %>)
+                (?:
+                    (?! \g<3> <%= $open %> )
+                    |
+                    (?<=')(\g<3>)
+                    |
+                    ( \w+ \s* )
+                )
+            beginCaptures:
+                1:<%= $scope->('keyword_string') %>
+                2:<%= $scope->('string_quote_begin') %>
+            endCaptures:
+                1:<%= $scope->('string_quote_begin', 'string_quote_end') %>
+                2:<%= $scope->('string_single') %>
+                3:<%= $scope->('string_double') %>
+            patterns:
+            - include: '#<%= $first_include %>'
+        -
+            begin: |-
+                (?<=<%= $open %>)
+            end: |-
+                (?=<%= $open %>)
+            patterns:
+            - include: '#<%= $second_include %>'
+    % }
+    % }
+% }
+- include: '#heredoc_1'
+-
+    match: |
+        (?x)
+        <
+        (?<! <<)
+        (?! [\s=])
+        (
+            (?:
+                \s* (?: [^<>=$\s\\]+ | \\. | [=$] (?! [>]) )
+            )*+
+        )
+        >
+        (?! [>=])
+    name: meta.string.glob
+    captures:
+        1:<%= $scope->('string_glob') %>
+-
+    match: |
+        (?x)
+        {(
+            \s* (-?[^\W\d]\w*)
+        |
+            \g<-1> \s*
+        )}
+    captures:
+        1:<%= $scope->('string_autoquoted') %>
+-
+    begin: |
+        (?x)
+        (?:
+            \b (?:CORE::)? __(?:END|DATA)__ (?!\w|::|'[^\W\d])
+            |
+            [\cD\cZ]
+        )
+        [\d\D]*
+    end: |-
+        (?!) # the end has no end
+    name: <%= scope "comment_block" %>
+    patterns:
+    - include: '#pod'
+-
+    match: |-
+        \b(?:CORE::)?__(?:END|DATA|FILE|LINE|PACKAGE|SUB)__(?!\w|::|'[^\W\d])
+    name: <%= scope "keyword_token" %>
+-
+    match: |
+        (?x)
+        \b ( (?:CORE::)? (?:dump|goto|last|next|redo) )
+        #
+        (?:
+            # open parens or space
+            (?: \s* (?:\(\s*)+ | \s+ )
+            #
+            # LABEL
+            ([^\W\d\p{Lower}][^\W\p{Lower}]*)
+        )?
+        #
+        (?!\w|::|'[^\W\d])
+    name: meta.control.labelled.perl
+    captures:
+        1:<%= $scope->('keyword_control') %>
+        2:<%= $scope->('label') %>
+-
+    match: |-
+        \belse\s+if(?!\w|::|'[^\W\d])
+    name: <%= scope "invalid_else_if" %>
+-
+    match: |-
+        \b(?:CORE::)?(?:break|continue|default|dump|else|elsif|for|foreach|given|goto|if|last|next|redo|return|unless|until|when|while)(?!\w|::|'[^\W\d])
+    name: <%= scope "keyword_control" %>
+-
+    match: |-
+        \b(?:CORE::)?(?:local|my|our|state)(?!\w|::|'[^\W\d])
+    name: <%= scope "keyword_storage" %>
+-
+    match: |-
+        \b(?:CORE::)?(?:m|q|qq|qr|qw|qx|s|tr|y)\b
+    name: <%= scope "keyword_string" %>
+-
+    match: |-
+        \b(?:CORE::)?(?:and|cmp|or|xor|not|lt|gt|le|ge|eq|ne|x)(?!\w|::|'[^\W\d])
+    name: <%= scope "keyword_operator" %>
+-
+    begin: |
+        (?x)
+        \b ( (?:CORE::)? format )
+        #
+        (?:
+            # format picture - copied from variable
+            (?: \s+
+                ((?!')(?:(?:::|'?[^\W\d])\w*)++)
+                (?= \s* (?:=\s*)? $ )
+            )
+        |
+            (?!\w|::|'[^\W\d])
+        )
+    end: |
+        (?x)
+        (?! \s* (?:=\s*)? $ )
+        |
+        ^\.\s*$
+    name: meta.format.perl
+    beginCaptures:
+        1:<%= $scope->('keyword_function') %>
+        2:<%= $scope->('filehandle') %>
+    patterns:
+    -
+        begin: |-
+            =\s*
+        end: |-
+            (?=^\.\s*$)
+        contentName: <%= scope "string_unquoted" %>
+        patterns:
+        - include: '#line_comment'
+        %#- include: '#variable'
+-
+    match: |
+        (?x)
+        \b ( (?:CORE::)? package )
+        (?:
+            \s+ (
+                # package name - copied from variable
+                (?!')(?:(?:::|'?[^\W\d])\w*)+
+            )
+            |
+            (?!\w|::|'[^\W\d])
+        )
+    name: meta.class.perl
+    captures:
+        1:<%= $scope->('keyword_package') %>
+        2:<%= $scope->('string_package') %>
+-
+    match: |
+        (?x)
+        # autoquoting keywords
+        \b ( (?:CORE::)? (?:use|require|no) )
+        (?:
+            \s+ (
+                # not a version number
+                (?!v\d)
+                # package name - copied from variable
+                (?!')(?:(?:::|'?[^\W\d])\w*)+
+            )
+            |
+            (?!\w|::|'[^\W\d])
+        )
+    captures:
+        1:<%= $scope->('keyword_package') %>
+        2:<%= $scope->('string_autoquoted') %>
+-
+    begin: |
+        (?x)
+        \b (?:
+            ( (?:CORE::)? sub )
+        |
+            # non-standard sub definitions
+            (method|func|before|after|around|trigger|build|set)
+        )
+        #
+        # sub name - copied from variable
+        (?:
+            \s+ (
+                (?!')(?:(?:::|'?[^\W\d])\w*)++
+            )
+            |
+            (?!\w|::|'[^\W\d])
+        )
+    end: |
+        (?x)
+        (?! \s* [(] | \s* $ )
+        |
+        (?<= [)] )
+    name: meta.function.perl
+    beginCaptures:
+        1:<%= $scope->('keyword_control') %>
+        2:<%= $scope->('function') %>
+        3:<%= $scope->('sub_name') %>
+    patterns:
+    -
+        begin: '\('
+        end: '\)'
+        contentName: <%= scope "sub_prototype" %>
+        patterns:
+        - include: '#single'
+-
+    match: |-
+        \b(?:CORE::)?(?:AUTOLOAD|BEGIN|CHECK|END|INIT|UNITCHECK)(?!\w|::|'[^\W\d])
+    name: meta.function.perl <%= scope "sub_name" %>
+-
+    match: |
+        (?x)
+            # these functions can take two filehandles as arguments
+            \b ( (?:CORE::)? (?:accept|pipe|socketpair) ) \g<6>
+            (\g<7>) \s*,\s* (\g<7>)
+        |
+            (?:
+                (
+                   # these functions take a filehandle as the first argument
+                    \b (?:CORE::)? (?:accept|bind|binmode|chdir|close|closedir|connect|eof|fcntl|fileno|flock|formline|getc|getpeername|getsockname|getsockopt|ioctl|listen|lstat|open|opendir|pipe|print|printf|read|readdir|readline|recv|rewinddir|say|seek|seekdir|select|send|setsockopt|shutdown|socket|socketpair|stat|sysopen|sysread|sysseek|syswrite|tell|telldir|truncate|write)
+                )
+            |
+                (
+                    # filetest operators also take a filehandle as a first argument
+                    -[ABCMORSTWXbcdefgkloprstuwxz] (?<!\w..)
+                )
+            )
+            (
+                (?!\w|::|'[^\W\d])
+                # open parens or space
+                (?: \s* (?:\(\s*)+ | \s+ )
+            )
+            (
+                # filehandle name - uppercase only
+                (?!')(?:(?:::|'?[^\W\d\p{Lower}])[^\W\p{Lower}]*)++
+                (?!\w|::|'[^\W\d]|\s*\()
+            )
+    name: meta.function.filehandle.perl
+    captures:
+        1:<%= $scope->('keyword_function') %>
+        2:<%= $scope->('filehandle') %>
+        3:<%= $scope->('filehandle') %>
+        4:<%= $scope->('keyword_function') %>
+        5:<%= $scope->('keyword_filetest') %>
+        7:<%= $scope->('filehandle') %>
+-
+    match: |-
+        -[ABCMORSTWXbcdefgkloprstuwxz](?<!\w..)(?!\w|::|'[^\W\d])
+    name: <%= scope "keyword_filetest" %>
+-
+    match: |-
+        \b(?:CORE::)?(?:abs|accept|alarm|and|atan2|bind|binmode|bless|break|caller|chdir|chmod|chomp|chop|chown|chr|chroot|close|closedir|cmp|connect|continue|cos|crypt|dbmclose|dbmopen|default|defined|delete|die|do|dump|each|else|elsif|endgrent|endhostent|endnetent|endprotoent|endpwent|endservent|eof|eq|eval|evalbytes|exec|exists|exit|exp|fc|fcntl|fileno|flock|for|foreach|fork|format|formline|ge|getc|getgrent|getgrgid|getgrnam|gethostbyaddr|gethostbyname|gethostent|getlogin|getnetbyaddr|getnetbyname|getnetent|getpeername|getpgrp|getppid|getpriority|getprotobyname|getprotobynumber|getprotoent|getpwent|getpwnam|getpwuid|getservbyname|getservbyport|getservent|getsockname|getsockopt|given|glob|gmtime|goto|grep|gt|hex|if|index|int|ioctl|join|keys|kill|last|lc|lcfirst|le|length|link|listen|local|localtime|lock|log|lstat|lt|m|map|mkdir|msgctl|msgget|msgrcv|msgsnd|my|ne|next|no|not|oct|open|opendir|or|ord|our|pack|package|pipe|pop|pos|print|printf|prototype|push|q|qq|qr|quotemeta|qw|qx|rand|read|readdir|readline|readlink|readpipe|recv|redo|ref|rename|require|reset|return|reverse|rewinddir|rindex|rmdir|s|say|scalar|seek|seekdir|select|semctl|semget|semop|send|setgrent|sethostent|setnetent|setpgrp|setpriority|setprotoent|setpwent|setservent|setsockopt|shift|shmctl|shmget|shmread|shmwrite|shutdown|sin|sleep|socket|socketpair|sort|splice|split|sprintf|sqrt|srand|stat|state|study|sub|substr|symlink|syscall|sysopen|sysread|sysseek|system|syswrite|tell|telldir|tie|tied|time|times|tr|truncate|uc|ucfirst|umask|undef|unless|unlink|unpack|unshift|untie|until|use|utime|values|vec|wait|waitpid|wantarray|warn|when|while|write|x|xor|y)(?!\w|::|'[^\W\d])
+    name: <%= scope "keyword_function" %>
+-
+    match: |-
+        \b(?:ARGV|ARGVOUT|STDERR|STDIN|STDOUT|DATA)(?!\w|::|'[^\W\d])
+    name: <%= scope "filehandle" %>
+    comment: >-
+        These aren't keywords, so CORE:: isn't applicable.
+-
+    match: |
+        (?x)
+        # class before ->
+        (?=[^[^\w:]\d])(?<!\w)
+        ((?:(?:::|'?[^\W\d])\w*)++)
+        \s*+ ->
+    captures:
+        1:<%= $scope->('string_autoquoted') %>
+-
+    match: |
+        (?x)
+        # method after ->
+        -> \s*
+        (?!')
+        ((?:(?:::|'?[^\W\d])\w*)++)
+    captures:
+        1:<%= $scope->('method') %>
+-
+    match: |
+        (?xi)
+        \b(?:0b[01_]*)(?!\w)
+    name: <%= scope "number.binary" %>
+-
+    match: |
+        (?xi)
+        \b(?:0[0-7_]+)(?!\w)
+    name: <%= scope "number.octal" %>
+-
+    match: |
+        (?xi)
+        \b(?:0x[\h_]*)(?!\w)
+    name: <%= scope "number.hex" %>
+-
+    match: |
+        (?x)
+        \b (?:
+            v (\d[\d_]*) (\.\d[\d_]*)* # v with 1 or more digit groups
+            |
+            (?!0[\d_]) \g<1> \g<2>{2,} # no v with 3 or more digit groups
+        )
+        (?!\w)
+    name: <%= scope "string_version" %>
+-
+    match: |
+        (?xi)
+        (?:
+            (?:
+                # start with digit
+                \b (?!0[\d_]) \d[\d_]*+ \.?
+                |
+                # start with point
+                \B \. \d
+            )
+            [\d_]*
+            (?: e [+-]? [\d_]* )?  # possible exponent
+        )
+        (?!\w)
+    name: <%= scope "number.float" %>
+-
+    match: |-
+        (?:\b\d|\B\.\d)\w*
+    name: <%= scope "invalid_number" %>
+-
+    match: |-
+        \b[^\W\d\p{Lower}][^\W\p{Lower}]*+:(?!:)
+    name: <%= scope "label" %>
+-
+    match: |-
+        (?=[^[^\w:]\d])(?<!\w)(?:(?:::|'?[^\W\d])\w*)+
+    name: <%= scope "function" %>
+
+################################################################################
+
+repository:
+<%
+sub quote_characters {
+    my ($heredoc) = @_;
+    {
+        $i = ord '!' if !$i;
+        $_ = chr $i++;
+        $i %= 0x80 + ($heredoc ? 1 : 0);
+        return if !$i;
+        if ($i == 0x80) {
+            $open = $close = $bopen = $bclose = "";
+        }
+        else {
+            redo if /[\w\s]/;
+            $open = $close = $bopen = $bclose = $_;
+            tr/(<[{//cd for $bopen, $bclose;
+            tr/(<[{/)>]}/ for $close, $bclose;
+            $_ = quotemeta for $open, $close, $bopen, $bclose;
+        }
+    }
+    return 1;
+}
+
+sub bracket_characters {
+    return $i = 0 if $i >= 4;
+    $open  = $bopen  = quotemeta +(qw' ( < [ { ')[$i];
+    $close = $bclose = quotemeta +(qw' ) > ] } ')[$i];
+    $i++;
+    return 1;
+}
+
+sub recursive_brackets {
+    my ($name) = @_;
+    if ($bopen) {
+        return <<"#";
+            -
+                begin: '$bopen'
+                end: '$bclose'
+                patterns:
+                - include: '#$name'
+#
+    }
+}
+
+sub quote_begin_end {
+    if ($open) {
+        return <<"#";
+            begin: |-
+                (?<=$open)
+            end: |-
+                (?=$close)
+#
+    }
+    else {
+        return <<'#';
+            begin: '^'
+            end: '\n|(?<=\n)'
+#
+    }
+}
+
+sub e {
+    my ($s) = @_;
+    for ($s) {
+        if ($open or $close) {
+            s/([$open$close])/\\$1/g;
+        }
+        return quotemeta;
+    }
+}
+
+sub o {
+    my ($s) = @_;
+    for ($s) {
+        if ($bopen) {
+            s/([$bopen])/(\\\\?)\\$1/g
+                or $_ = quotemeta;
+        }
+        return $_;
+    }
+}
+
+sub c {
+    my ($s) = @_;
+    for ($s) {
+        if ($bclose) {
+            s/([$bclose])/\\k<-1>\\$s/g
+                or $_ = quotemeta;
+        }
+        return $_;
+    }
+}
+
+%>\
+    single:
+        patterns:
+        % while (quote_characters) {
+        -
+            <%= quote_begin_end =%>
+            patterns:
+            -
+                match: |-
+                    (\\)[<%= $open.$bclose %>\\]
+                captures:
+                    1:<%= $scope->('string_escape') %>
+            <%= recursive_brackets "single" =%>
+        % }
+    double:
+        patterns:
+        % while (quote_characters 1) {
+        -
+            <%= quote_begin_end =%>
+            patterns:
+            -
+                match: |
+                    (?x)
+                    (?<variable>
+                        <%=e '@'%> \g<scalar_identifier>
+                        |
+                        <%=e '$'%> \s*
+                        (?<scalar_identifier>
+                            (?<scalar>
+                                (?:<%=e '$'%>)+
+                                (?<identifier>
+                                    (?<caret_id>
+                                        <%=e '^'%> [^\W\d\p{Lower}]
+                                    )
+                                    |
+                                    (?<normal_id>
+                                        \d+
+                                        |
+                                        (?:
+                                            (?: (?:<%=e '::'%>) | (?:<%=e "'"%>)?[^\W\d] ) \w*
+                                        )++
+                                        # |
+                                        # [^[^!-~]{\w\s<%=$close%>]
+                                    )
+                                    |
+                                    <%=o '{'%>
+                                    \s* (?:
+                                        \g<variable> | \g<caret_id> \w* | \g<normal_id>
+                                    ) \s*
+                                    <%=c '}'%>
+                                    |
+                                    (?=<%=e '{'%>)
+                                )
+                            )
+                            |
+                            \g<identifier>
+                        )?
+                    )
+                name: <%= scope "string_variable" %>
+            -
+                match: |
+                    (?x)
+                    \\ (?:
+                        x (?:
+                            \h{1,2}
+                            |
+                            <%=o '{'%> (?!__)[_\h]* <%=c '}'%>
+                        )
+                        |
+                        o <%=o '{'%> (?!__)[_0-7]* <%=c '}'%>
+                        |
+                        [0-7]{1,3}
+                        |
+                        N <%=o '{'%>
+                        (?:
+                            U<%=e '+'%> (?:_?\h+)++
+                            |
+                            (?! U<%=e '+'%> )
+                            (?:
+                                % if ($close !~ /[\\}]$/) {
+                                \\[\\<%=$close%>]
+                                |
+                                % }
+                                [^}<%=$close%>]
+                            )*+
+                        ) <%=c '}'%>
+                        |
+                        #c\p{ASCII}
+                        #|
+                        \p{Alnum}
+                    )
+                name: <%= scope 'string_escape' %>
+            -
+                match: |-
+                    (\\)[\d\D]
+                captures:
+                    1:<%= $scope->('string_escape') %>
+            <%= recursive_brackets "double" =%>
+        % }
+    double_regexp:
+        patterns:
+        % while (quote_characters) {
+        -
+            <%= quote_begin_end =%>
+            patterns:
+            -
+                match: |
+                    (?x)
+                    (?<variable>
+                        <%=e '@'%> \g<scalar_identifier>
+                        |
+                        <%=e '$'%>
+                        (?<scalar_identifier>
+                            (?<scalar>
+                                (?:<%=e '$'%>)+
+                                (?<identifier>
+                                    (?<caret_id>
+                                        <%=e '^'%> [^\W\d\p{Lower}]
+                                    )
+                                    |
+                                    (?<normal_id>
+                                        \d+
+                                        |
+                                        (?:
+                                            (?: (?:<%=e '::'%>) | (?:<%=e "'"%>)?[^\W\d] ) \w*
+                                        )++
+                                        # |
+                                        # [^[^!-~]{\w\s<%=$close%>]
+                                    )
+                                    |
+                                    <%=o '{'%>
+                                    \s* (?:
+                                        \g<variable> | \g<caret_id> \w* | \g<normal_id>
+                                    ) \s*
+                                    <%=c '}'%>
+                                    |
+                                    (?=<%=e '{'%>)
+                                )
+                            )
+                            |
+                            \g<identifier>
+                        )
+                    )
+                name: <%= scope "string_variable" %>
+            -
+                match: |
+                    (?x)
+                    \\ (?:
+                        x (?:
+                            \h{1,2}
+                            |
+                            <%=o '{'%> (?!__)[_\h]* <%=c '}'%>
+                        )
+                        |
+                        o <%=o '{'%> (?!__)[_0-7]* <%=c '}'%>
+                        |
+                        [0-7]{1,3}
+                        |
+                        N <%=o '{'%>
+                        (?:
+                            U<%=e '+'%> (?:_?\h+)++
+                            |
+                            (?! U<%=e '+'%> )
+                            (?:
+                                % if ($close !~ /[\\}]$/) {
+                                \\[\\<%=$close%>]
+                                |
+                                % }
+                                [^}<%=$close%>]
+                            )*+
+                        ) <%=c '}'%>
+                        |
+                        #c\p{ASCII}
+                        #|
+                        \p{Alnum}
+                    )
+                name: <%= scope 'string_escape' %>
+            -
+                match: |-
+                    (\\)[\d\D]
+                captures:
+                    1:<%= $scope->('string_escape') %>
+            <%= recursive_brackets "double_regexp" =%>
+        % }
+    double_or_single:
+        patterns:
+        -
+            begin: |-
+                (?<=')
+            end: |-
+                (?=')
+            contentName: <%= scope "string_single" %>
+            patterns:
+            - include: '#single'
+        -
+            begin: |-
+                (?<=(\()|(<)|(\[)|({)|([^[^!-~]\w\s]))
+            end: |-
+                (?=(?!\1)\)|(?!\2)>|(?!\3)\]|(?!\4)}|[\5[&&]])
+            contentName: <%= scope "string_double" %>
+            patterns:
+            - include: '#double'
+    double_or_single_regexp:
+        patterns:
+        -
+            begin: |-
+                (?<=')
+            end: |-
+                (?=')
+            contentName: <%= scope "string_regexp" %>
+            patterns:
+            - include: '#single'
+        -
+            begin: |-
+                (?<=(\()|(<)|(\[)|({)|([^[^!-~]\w\s]))
+            end: |-
+                (?=(?!\1)\)|(?!\2)>|(?!\3)\]|(?!\4)}|[\5[&&]])
+            contentName: <%= scope "string_regexp" %>
+            patterns:
+            - include: '#double_regexp'
+    line_comment:
+        match: |-
+            \#[\d\D]*
+        name: <%= scope "comment_line" %>
+    pod:
+        begin: |-
+            ^=\p{Alpha}[\d\D]*
+        end: |-
+            ^=cut(?!\p{Alpha})[\d\D]*
+        name: meta.pod <%= scope "comment_block" %>
+        patterns:
+        -
+            match: '\t+'
+            name: <%= scope "invalid_pod_tab" %>
+    heredoc_1:
+        patterns:
+        -
+            begin: |
+                (?x)
+                << (?=
+                    [^\W\d]\w*
+                    |
+                    \\ \w*
+                    |
+                    \s* (['"`]) .*? \1
+                )
+            end: '$'
+            name: meta.heredoc.perl
+            patterns:
+            <%
+            for (
+                [qw( CSS            source.css      )],
+                [qw( HTML           text.html.basic )],
+                [qw( JS|JAVASCRIPT  source.js       )],
+                [qw( PERL           source.perl     )],
+                [qw( SQL            source.sql      )],
+                [qw( XML            text.xml        )],
+            ) {
+                my ($identifier, $scope_selector) = @$_;
+            %>
+            -
+                begin: |
+                    (?x)
+                    (?:
+                        (<%= $identifier %>) \b
+                        |
+                        \s* (["`'])
+                        (?:
+                            ((?<=") \s* (?:<%= $identifier %>))
+                            |
+                            ((?<=`) \s* (?:<%= $identifier %>))
+                            |
+                            (\s* (?:<%= $identifier %>))
+                        )
+                        (\2)
+                        |
+                        \\ (<%= $identifier %>) \b
+                    )
+                    .* \n?
+                end: |-
+                    ^(\1\3)(\4)(\5\7)$
+                beginCaptures:
+                    1:<%= $scope->('string_double') %>
+                    2:<%= $scope->('string_quote_begin') %>
+                    3:<%= $scope->('string_double') %>
+                    4:<%= $scope->('string_backtick') %>
+                    5:<%= $scope->('string_single') %>
+                    6:<%= $scope->('string_quote_end') %>
+                    7:<%= $scope->('string_single') %>
+                contentName: <%= $scope_selector %>.embedded.perl
+                endCaptures:
+                    1:<%= $scope->('string_double') %>
+                    2:<%= $scope->('string_backtick') %>
+                    3:<%= $scope->('string_single') %>
+                patterns:
+                % if ($scope_selector eq 'source.perl') {
+                - include: '$self'
+                % } else {
+                - include: <%= $scope_selector %>
+                % }
+            % }
+            -
+                begin: |
+                    (?x)
+                    (?:
+                        (\w+)
+                        |
+                        \s* (["`])
+                        (?:
+                            ((?<=") .*?)
+                            |
+                            (.*?)
+                        )
+                        (\2)
+                    )
+                    .* \n?
+                end: |-
+                    ^(\1\3)(\4)$
+                beginCaptures:
+                    1:<%= $scope->('string_double') %>
+                    2:<%= $scope->('string_quote_begin') %>
+                    3:<%= $scope->('string_double') %>
+                    4:<%= $scope->('string_backtick') %>
+                    5:<%= $scope->('string_quote_end') %>
+                contentName: <%= scope "string_unquoted" %>
+                endCaptures:
+                    1:<%= $scope->('string_double') %>
+                    2:<%= $scope->('string_backtick') %>
+                patterns:
+                - include: '#double'
+            -
+                begin: |
+                    (?x)
+                    (?:
+                        \\ (\w+)
+                        |
+                        \s* (') (.*?) (')
+                    )
+                    .* \n?
+                end: |-
+                    ^(\1\3)$
+                beginCaptures:
+                    1:<%= $scope->('string_single') %>
+                    2:<%= $scope->('string_quote_begin') %>
+                    3:<%= $scope->('string_single') %>
+                    4:<%= $scope->('string_quote_end') %>
+                contentName: <%= scope "string_unquoted" %>
+                endCaptures:
+                    1:<%= $scope->('string_single') %>
+    regex_quantifier_curly:
+        % for my $n (10) {
+        comment: >-
+            For {n,m} to be a quantifier, n must exist, and m must be greater than n if it exists.
+            Just take my word for it that this voodoo does all that
+            and numeric comparison of m > n up to an n that is 10 digits long.
+        begin: |
+            (?x)
+            (?={
+                (?>0*(?=\d))
+                \d*?<%= '(\d??)' x $n %>
+                ,? \d*+
+            })
+        end: |
+            (?x)
+            ({
+                \d+
+                (?:
+                    # m is empty
+                    ,?
+                    |
+                    # otherwise numeric comparison!
+                    , (?>0*(?=\d))
+                    <%= join "\n" . " " x 20, map {
+                        my $full = sprintf '(?: \d{%d,} | [&\1&\d&&[^0-\1]]\d{%d}', $n-$_+2, $n-$_;
+                        $full .= ' | \1' if $_ < $n;
+
+                        $full =~ s/\\1/\\$_/g;
+                        $full;
+                    } 1..$n
+                    %>
+                    <%= ')' x $n %>
+                )
+            })
+            |
+            # not a quantifier, but we have to match something to prevent infinite recursion
+            {\d*,?\d*}
+        endCaptures:
+            1:<%= $scope->('string_regexp') %>
+        % }
+...

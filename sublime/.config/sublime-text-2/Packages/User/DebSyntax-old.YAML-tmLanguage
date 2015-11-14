@@ -1,0 +1,77 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+---
+name: Debian Syntax (OLD)
+scopeName: source.debsyntax
+fileTypes: [dsc]
+uuid: 6df4e41e-2988-41ac-bdcd-a4b1347b42e9
+
+patterns: 
+  - 
+    match: "(Source|Maintainer|Uploaders|Changed-By|Homepage|DM-Upload-Allowed):"
+    name: "keyword.debsyntax"
+  - 
+    match: "(Section|Priority|Distribution|Urgency|Closes):"
+    name: "keyword.debsyntax"
+  - 
+    match: "(Depends|Recommends|Enhances|Suggests|Pre-Depends|Provides):"
+    name: "keyword.debsyntax"
+  - 
+    match: "(Conflicts|Breaks|Replaces):"
+    name: "keyword.debsyntax"
+  - 
+    match: "(Build-Depends|Build-Depends-Indep|Build-Conflicts|Build-Conflicts-Indep|Built-Using):"
+    name: "keyword.debsyntax"
+  - 
+    match: "(Package|Architecture|Essential|Installed-Size):"
+    name: "keyword.debsyntax"
+  - 
+    match: "(Standards-Version|Version|Date|Format):"
+    name: "keyword.debsyntax"
+  - 
+    match: "(Checksums-Sha1|Checksums-Sha256|Dgit):"
+    name: "keyword.debsyntax"
+  - 
+    match: "(Description|Changes|Binary|Files|Package-[List|Type]):"
+    name: "keyword.debsyntax"
+  - 
+    match: "(^Vcs-(Browser|Arch|Bzr|Cvs|Darcs|Git|Hg|Mtn|Svn)):"
+    name: "keyword.debsyntax"
+
+  - 
+    name: "variable.debsyntax"
+    begin: "%\\{"
+    patterns: 
+      - 
+        match: "__[A-Z_a-z_0-9_]*"
+        name: "variable.debsyntax"
+      - 
+        match: "[A-Z_a-z_0-9_]*"
+        name: "variable.debsyntax"
+    end: "\\}"
+  - 
+    match: "%__([A-Z_a-z_0-9_]*)"
+    name: "variable.debsyntax"
+  - 
+    match: "%_([A-Z_a-z_0-9_]*)"
+    name: "variable.debsyntax"
+  - 
+    match: "%([A-Z_a-z_0-9_]+)"
+    name: "variable.debsyntax"
+  - 
+    match: "^%(build$|changelog|check$|clean$|description|files|install$|package|prep$|pre|preun|post|postun|trigger|triggerin|triggerpostun|triggerun|verifyscript)"
+    name: "keyword.control.debsyntax"
+  - 
+    match: "%(if|else|endif|define|global|undefine)"
+    name: "keyword.control.debsyntax"
+  - 
+    match: "^\\s*#.*$"
+    name: "comment.line.debsyntax"
+  - 
+    match: "^# norootforbuild"
+    name: "keyword.debsyntax"
+  - 
+    match: "^\\* .*\\)$"
+    name: "meta.documentation.debsyntax"
+  - 
+    include: "source.shell"
+uuid: "6df4e41e-2988-41ac-bdcd-a4b1347b42e9"

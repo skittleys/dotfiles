@@ -1,0 +1,63 @@
+
+{
+    // If you want exceptions reraised so you can see them in the console, change this to true.
+    "reraise_exceptions": false,
+
+    // If you want to have a syntax applied when new files are created, set new_file_syntax to the name of the syntax to use.
+    // The format is exactly the same as "name" in the rules below. For example, if you want to have a new file use
+    // JavaScript syntax, set new_file_syntax to 'JavaScript'.
+    "new_file_syntax": false,
+
+    // Put your custom syntax rules here:
+    "syntaxes": [
+        {
+            // manpages
+            "name": "Man Page Support/man-groff",
+            "rules": [
+                {"file_name": ".*\\.[1-9](\\.gz)?$"}
+            ]
+        },
+    	{
+            // debian/rules is always a Makefile
+    		"name": "Makefile/Makefile",
+    		"rules": [
+    			{"file_name": ".*/debian/rules$"}
+    		]
+    	},
+        {
+            // shell scripts in a debian folder
+            "name": "ShellScript/Shell-Unix-Generic",
+            "match": "all",
+            "rules": [
+                {"file_name": ".*/debian/[\\w\\.\\-\\~]+$"},
+                {"binary": "sh"}
+            ]
+        },
+        {
+            // these are always shell files (but don't necessarily have a shebang)
+            "name": "ShellScript/Shell-Unix-Generic",
+            "rules": [
+                {"file_name": ".*/debian/(.*\\.)?(postinst|postrm|preinst|prerm|watch)$"}
+            ]
+        },
+    	{
+            // anything else in a debian folder
+    		"name": "User/Debian Syntax",
+    		"rules": [
+    			{"file_name": ".*/debian/[\\w\\.\\-\\~]+$"}
+    		]
+    	},
+    	{
+    		"name": "ShellScript/Shell-Unix-Generic",
+    		"rules": [
+    			{"file_name": ".*/prezto/?.*"},
+                {"file_name": ".*/\\.bash.*"},
+                {"file_name": ".*\\.zsh.*"},
+                {"file_name": "home/.*/\\.z.*"},
+                {"file_name": ".*/\\.git.*"},
+                {"file_name": ".*\\..*rc"}
+    		]
+    	}
+
+    ]
+}

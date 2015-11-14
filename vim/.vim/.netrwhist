@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/cm/builds/atom/atom-0.99.0/src'
+let g:netrw_dirhist_2='/usr/share/zsh/functions/Completion'
+let g:netrw_dirhist_3='/home/cm/debian/ruby'
+let g:netrw_dirhist_4='/home/cm/debian/ruby/barrier'
+let g:netrw_dirhist_5='/home/cm/debian/jgraph-newest/jgraph-83.orig/debian'
+let g:netrw_dirhist_6='/home/cm/debian/python/minimock/python-minimock/docs'
+let g:netrw_dirhist_7='/usr/lib/prezto/modules/completion/external'

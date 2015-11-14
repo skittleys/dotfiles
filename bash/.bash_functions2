@@ -1,0 +1,10 @@
+function mkdcd {
+	[[ -n $1 ]] && mkdir -p "$1" && builtin cd "$1"
+}
+
+function desc {
+	if [[ -n $1 ]]; then
+		res=$(apt-cache show $1 | grep -m 1 "Description\(-en\)\?:" | sed "s/Description\(-en\)\?: //")
+		echo -e "\e[33m$1\e[0m: $res\n"
+	fi
+}

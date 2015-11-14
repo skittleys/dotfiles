@@ -1,0 +1,644 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"test",
+				"testsuite"
+			],
+			[
+				"sa",
+				"sane"
+			],
+			[
+				"tmp",
+				"tmp_file"
+			],
+			[
+				"debsy",
+				"debsyntax"
+			],
+			[
+				"prom",
+				"prompt_end"
+			],
+			[
+				"promp",
+				"prompt_git"
+			],
+			[
+				"sub",
+				"sublime-settings"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/home/cm/.config/tint2/tint2rc",
+			"settings":
+			{
+				"buffer_size": 2388,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/cm/.config/tint2~/default.tint2rc",
+			"settings":
+			{
+				"buffer_size": 4036,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/cm/Downloads/dotfiles/install",
+			"settings":
+			{
+				"buffer_size": 1506,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/cm/debian/rules.attic.tmp",
+			"settings":
+			{
+				"buffer_size": 1250,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/cm/debian/yet-another-attic/attic-git/debian/rules",
+			"settings":
+			{
+				"buffer_size": 416,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/cm/debian/attic-git-update/setup.py",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 54.0,
+		"selected_items":
+		[
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"p",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: List Packages"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Disable Package"
+			],
+			[
+				"togg",
+				"View: Toggle Minimap"
+			],
+			[
+				"Package Control: ",
+				"Package Control: List Packages"
+			],
+			[
+				"Package Control: i",
+				"Package Control: Install Package"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: re",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: dis",
+				"Package Control: Disable Package"
+			],
+			[
+				"schem",
+				"Schemr: List all schemes"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: r",
+				"Package Control: Remove Package"
+			],
+			[
+				"selector",
+				"ColorSchemeSelector: Next Color Scheme"
+			],
+			[
+				"Package Control: l",
+				"Package Control: List Packages"
+			],
+			[
+				"minim",
+				"View: Toggle Minimap"
+			]
+		],
+		"width": 490.0
+	},
+	"console":
+	{
+		"height": 213.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/cm/debian/attic-tmp/attic-git-update/debian/rules",
+		"/home/cm/debian/attic-tmp/attic-git-update/docs/h2m",
+		"/home/cm/debian/rules.attic.tmp",
+		"/home/cm/attic.1",
+		"/usr/share/man/man1/info.1.gz",
+		"/home/cm/debian/attic-tmp/attic-git-update/docs/tmp.1",
+		"/home/cm/debian/attic-git-update/debian/rules",
+		"/usr/lib/prezto/modules/prompt/functions/prompt_skittleys_setup",
+		"/home/cm/builds/obgen/obmenu-generator-0.59/obmenu-generator-new",
+		"/home/cm/bin/git-dirty",
+		"/home/cm/.pbuilderrc-wheezy",
+		"/var/cache/pbuilder/hooks/A10set_ccache_options",
+		"/home/cm/.conkyrc",
+		"/home/cm/.pbuilderrc",
+		"/home/cm/.config/sublime-text-2/Packages/User/Plain text.sublime-settings",
+		"/home/cm/.config/sublime-text-2/Packages/User/ApplySyntax.sublime-settings",
+		"/home/cm/.config/sublime-text-2/Packages/ApplySyntax/ApplySyntax.sublime-settings",
+		"/usr/lib/prezto/modules/prompt/functions/get_short_path.zsh",
+		"/home/cm/.config/tint2~/tint2rc",
+		"/home/cm/.config/tint2/tint2confrc",
+		"/home/cm/.config/tint2~/tint2confrc",
+		"/usr/share/themes/Numix Arctic/gtk-3.0/gtk-widgets.css",
+		"/usr/share/themes/Numix Arctic/gtk-3.0/gtk.css",
+		"/usr/share/themes/Numix Arctic/gtk-3.0/gtk-dark.css",
+		"/usr/share/themes/Numix Arctic/openbox-3/themerc",
+		"/usr/lib/prezto/modules/completion/init.zsh",
+		"/usr/lib/prezto/modules/prompt/functions/prompt_pnelson_setup",
+		"/usr/lib/prezto/modules/prompt/functions/prompt_sorin_setup",
+		"/home/cm/.config/obmenu-generator/schema.pl",
+		"/usr/lib/prezto/modules/git/alias.zsh",
+		"/home/cm/.config/tint2/tint2rc",
+		"/usr/share/themes/Numix Arctic/gtk-3.0/gtk-widgets-assets.css",
+		"/home/cm/.config/openbox/menu.xml.bak",
+		"/home/cm/.config/openbox/menu.xml",
+		"/home/cm/.config/openbox/rc.xml",
+		"/home/cm/.config/sublime-text-2/Packages/Color Highlighter/ColorHighlighter.sublime-settings",
+		"/usr/share/zsh/functions/Completion/Unix/_git",
+		"/home/cm/.config/sublime-text-2/Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+		"/home/cm/.config/sublime-text-2/Packages/ToggleMinimapOnScroll/ToggleMinimapOnScroll.sublime-settings",
+		"/home/cm/.config/sublime-text-2/Packages/User/ToggleMinimapOnScroll.sublime-settings",
+		"/usr/lib/prezto/modules/prompt/functions/prompt_pnelsonOLD_setup",
+		"/home/cm/builds/koans/readme.md",
+		"/home/cm/builds/koans/koans-en.md",
+		"/home/cm/builds/obgen/obmenu-generator-0.59/obmenu-generator",
+		"/home/cm/.config/obmenu-generator/config.pl",
+		"/usr/bin/X11/cb-exit",
+		"/home/cm/.config/openbox/menu.xml.bak2",
+		"/home/cm/.vim/colors/paintbox.vim",
+		"/etc/zsh/zpreztorc",
+		"/etc/zsh/zprofile",
+		"/usr/lib/prezto/install.zsh",
+		"/etc/zsh/zlogin",
+		"/etc/zsh/zlogout",
+		"/etc/zsh/zshenv",
+		"/etc/zsh/zshrc",
+		"/home/cm/history.txt",
+		"/home/cm/utils/rcg",
+		"/etc/apt/preferences",
+		"/home/cm/utils/rcg2",
+		"/home/cm/.bashrc",
+		"/home/cm/.bash_functions",
+		"/home/cm/.bash_alias_completion",
+		"/home/cm/wrapalias.bash",
+		"/home/cm/.zshrc",
+		"/usr/lib/prezto/runcoms/zpreztorc",
+		"/usr/lib/prezto/runcoms/zshrc",
+		"/usr/lib/prezto/init.zsh",
+		"/home/cm/.config/sublime-text-2/Packages/Dotfiles Syntax Highlighting/Shell-Unix-Generic.sublime-settings",
+		"/home/cm/.vimrc",
+		"/home/cm/.config/sublime-text-2/Packages/User/VimL.sublime-settings",
+		"/home/cm/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
+		"/home/cm/.config/sublime-text-2/Packages/User/Debian Syntax.YAML-tmLanguage",
+		"/home/cm/.config/sublime-text-2/Packages/User/DebSyntax-new.YAML-tmLanguage",
+		"/usr/lib/prezto/modules/prompt/functions/prompt_buzzmin_setup",
+		"/usr/lib/prezto/modules/prompt/functions/prompt_skittleysOLD_setup",
+		"/home/cm/.config/sublime-text-2/Packages/DebSyntax/DebSyntax.JSON-tmLanguage",
+		"/home/cm/.config/sublime-text-2/Packages/DebSyntax/DebSyntax.tmLanguage",
+		"/home/cm/.config/sublime-text-2/Packages/AAAPackageDev/Syntax Definitions/Sublime Text Syntax Def (YAML).YAML-tmLanguage",
+		"/home/cm/builds/grep/grep_2.12-2.dsc",
+		"/home/cm/builds/nano/nano-2.2.6/debian/control",
+		"/home/cm/builds/grep/grep-2.12/debian/changelog",
+		"/home/cm/.config/sublime-text-2/Packages/User/DebSyntax-new.tmLanguage",
+		"/home/cm/.config/sublime-text-2/Packages/Theme - Nil/Tubnil.tmTheme",
+		"/home/cm/.config/sublime-text-2/Packages/Theme - Freesia/Freesia.sublime-theme",
+		"/home/cm/builds/grep/grep-2.12/debian/control",
+		"/home/cm/.config/sublime-text-2/Packages/User/DebSyntax.YAML-tmLanguage",
+		"/home/cm/.config/sublime-text-2/Packages/AAAPackageDev/Syntax Definitions/Sublime Text Syntax Def (JSON).JSON-tmLanguage",
+		"/home/cm/.config/sublime-text-2/Packages/User/Sublime Text Syntax Def (YAML).sublime-settings",
+		"/home/cm/.config/sublime-text-2/Packages/User/JSON.sublime-settings",
+		"/home/cm/.config/sublime-text-2/Packages/ApplySyntax/.gitignore",
+		"/home/cm/builds/grep/grep-2.12/Makefile",
+		"/home/cm/.config/sublime-text-2/Packages/JavaScript/JavaScript.tmLanguage",
+		"/usr/lib/prezto/modules/prompt/functions/prompt_ashmckenzie_setup",
+		"/usr/lib/prezto/modules/prompt/functions/prompt_lettertwo_setup",
+		"/home/cm/.config/sublime-text-2/Packages/User/Shell-Unix-Generic.sublime-settings",
+		"/usr/lib/prezto/modules/prompt/functions/prompt_powerline_setup",
+		"/usr/lib/prezto/modules/prompt/functions/prompt_agnoster_setup",
+		"/usr/lib/prezto/modules/prompt/functions/prompt_paradox_setup",
+		"/home/cm/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings",
+		"/home/cm/.config/sublime-text-2/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/home/cm/.config/sublime-text-2/Packages/BracketHighlighter/bh_core.sublime-settings",
+		"/home/cm/.config/sublime-text-2/Packages/User/bh_core.sublime-settings",
+		"/usr/lib/prezto/modules/git/functions/git-info",
+		"/home/cm/.config/sublime-text-2/Packages/Default/Default (Linux).sublime-keymap",
+		"/home/cm/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
+		"/home/cm/.config/sublime-text-2/Packages/SchemeCycler/SchemeCycler.py",
+		"/home/cm/.config/sublime-text-2/Packages/Camaleon/Camaleon.sublime-settings",
+		"/home/cm/.config/sublime-text-2/Packages/Schemr/schemr.py",
+		"/home/cm/.config/sublime-text-2/Packages/Schemr/lib/plist_parser.py",
+		"/usr/lib/python2.7/xml/etree/ElementTree.py",
+		"/usr/lib/python2.7/xml/sax/__init__.py",
+		"/home/cm/.config/sublime-text-2/Packages/User/SchemrFavorites.sublime-settings",
+		"/home/cm/.config/sublime-text-2/Packages/Schemr/SchemrFavorites.sublime-settings",
+		"/home/cm/.config/sublime-text-2/Packages/Schemr/Default (Linux).sublime-keymap",
+		"/home/cm/.config/sublime-text-2/Packages/Theme - Nil/Nil.sublime-theme",
+		"/home/cm/.config/sublime-text-2/Packages/Theme - Freesia/Void.sublime-theme"
+	],
+	"find":
+	{
+		"height": 41.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"test",
+			"calibri",
+			"status",
+			"git diff",
+			"a348b1",
+			"selected_bg",
+			"d64937",
+			"entity.name.function",
+			"interrog",
+			"list-col",
+			"man",
+			"branch",
+			"SCHEMA",
+			"name_keys",
+			"schema",
+			"-F",
+			"prompt_segment",
+			"^",
+			"constant",
+			"support",
+			"variable",
+			"$",
+			"from-key",
+			"keyword.control.spec",
+			"variable.spec",
+			"keyword.spec",
+			"scope",
+			"%{",
+			"C:",
+			"rprompt",
+			"caitlin",
+			"%{",
+			"fg",
+			"bg",
+			"caitlin",
+			"overwrite",
+			"overwrite\noverwrite",
+			"key",
+			"key\nkey",
+			"preexec",
+			"brackethigh",
+			"solid",
+			"prompt_end",
+			"prompt",
+			"z",
+			"zstyle",
+			"z",
+			"prezto",
+			"z",
+			"keyword.spec",
+			"ctrl+shift+up",
+			"alt",
+			"ctrl",
+			"multi",
+			" #",
+			"zstyle",
+			"make_parser",
+			"sys",
+			"iterparse",
+			"sidebar",
+			"fold_",
+			"fold",
+			"theme"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"Carlito",
+			"a172d2",
+			"a348b1",
+			"keyword.control.debsyntax",
+			"variable.debsyntax",
+			"keyword.debsyntax",
+			"skittleys",
+			"fog",
+			"bog",
+			"skittleys"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/home/cm/.config/tint2/tint2rc",
+					"settings":
+					{
+						"buffer_size": 2388,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								182,
+								182
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Tubnil.tmTheme",
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/cm/.config/tint2~/default.tint2rc",
+					"settings":
+					{
+						"buffer_size": 4036,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2395,
+								2395
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Tubnil.tmTheme",
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1386.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/cm/Downloads/dotfiles/install",
+					"settings":
+					{
+						"buffer_size": 1506,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								139,
+								139
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Tubnil.tmTheme",
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/cm/debian/rules.attic.tmp",
+					"settings":
+					{
+						"buffer_size": 1250,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1075,
+								1075
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Tubnil.tmTheme",
+							"syntax": "Packages/User/Debian Syntax.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/home/cm/debian/yet-another-attic/attic-git/debian/rules",
+					"settings":
+					{
+						"buffer_size": 416,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								393,
+								393
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Tubnil.tmTheme",
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/home/cm/debian/attic-git-update/setup.py",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Tubnil.tmTheme",
+							"syntax": "Packages/User/Debian Syntax.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.package_dev":
+	{
+		"height": 96.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"untitled"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 176.0,
+	"status_bar_visible": true
+}
