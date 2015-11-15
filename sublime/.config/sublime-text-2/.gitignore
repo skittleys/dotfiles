@@ -1,0 +1,5 @@
+*.sublime_session
+*.sublime_project
+*.sublime_workspace
+Backup*
+*.cache
