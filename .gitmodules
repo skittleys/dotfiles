@@ -1,3 +1,21 @@
 [submodule "sublime/.config/sublime-text-2/Packages/DebSyntax"]
     path = sublime/.config/sublime-text-2/Packages/DebSyntax
     url = https://github.com/skittleys/DebSyntax.git
+[submodule "vim/.vim/vim-addons/CSApprox"]
+    path = vim/.vim/vim-addons/CSApprox
+    url = git://github.com/godlygeek/csapprox
+[submodule "vim/.vim/vim-addons/kolor"]
+    path = vim/.vim/vim-addons/kolor
+    url = git://github.com/zeis/vim-kolor
+[submodule "vim/.vim/vim-addons/surround"]
+    path = vim/.vim/vim-addons/surround
+    url = git://github.com/tpope/vim-surround
+[submodule "vim/.vim/vim-addons/Tagbar"]
+    path = vim/.vim/vim-addons/Tagbar
+    url = git://github.com/majutsushi/tagbar
+[submodule "vim/.vim/vim-addons/vim-addon-manager"]
+    path = vim/.vim/vim-addons/vim-addon-manager
+    url = git://github.com/MarcWeber/vim-addon-manager
+[submodule "vim/.vim/vim-addons/vim-pi"]
+    path = vim/.vim/vim-addons/vim-pi
+    url = https://bitbucket.org/vimcommunity/vim-pi
