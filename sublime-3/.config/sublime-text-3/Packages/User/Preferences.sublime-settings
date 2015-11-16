@@ -1,0 +1,40 @@
+{
+	"color_scheme": "Packages/User/SublimeLinter/Tubnil (SL).tmTheme",
+	"dictionary": "Packages/Language - English/en_US.dic",
+	"font_face": "Monaco for Powerline",
+	"font_size": 8,
+	"ignored_packages":
+	[
+		"Base16 Color Schemes",
+		"BracketHighlighter",
+		"Color Highlighter",
+		"Dotfiles Syntax Highlighting",
+		"ModernPerl",
+		"RubyTest",
+		"SchemeCycler",
+		"Schemr",
+		"Theme - Afterglow",
+		"Theme - Cyanide",
+		"Theme - Flatland",
+		"Theme - Phoenix",
+		"Vintage"
+	],
+	"ignored_words":
+	[
+		"Fruchterman",
+		"Pajek",
+		"Reingold",
+		"backlink",
+		"graphml",
+		"indices",
+		"neighbourhood",
+		"neighbours",
+		"png",
+		"sociomatrix",
+		"statusbar",
+		"toolbar",
+		"vertices"
+	],
+	"piatto_folder_icons": true,
+	"theme": "Piatto Dark.sublime-theme"
+}

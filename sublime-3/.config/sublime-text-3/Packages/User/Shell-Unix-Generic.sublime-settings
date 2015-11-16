@@ -1,0 +1,10 @@
+{
+	"extensions":
+	[
+		"git-info",
+		"*_setup",
+		"bash",
+		"sh",
+		"zsh"
+	]
+}
