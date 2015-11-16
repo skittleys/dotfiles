@@ -4,9 +4,6 @@
 [submodule "vim/.vim/vim-addons/CSApprox"]
     path = vim/.vim/vim-addons/CSApprox
     url = git://github.com/godlygeek/csapprox
-[submodule "vim/.vim/vim-addons/kolor"]
-    path = vim/.vim/vim-addons/kolor
-    url = git://github.com/zeis/vim-kolor
 [submodule "vim/.vim/vim-addons/surround"]
     path = vim/.vim/vim-addons/surround
     url = git://github.com/tpope/vim-surround
