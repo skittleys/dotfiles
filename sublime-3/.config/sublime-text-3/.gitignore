@@ -3,3 +3,5 @@
 *.sublime_workspace
 Backup*
 *.cache
+Index/
+*.last-run
