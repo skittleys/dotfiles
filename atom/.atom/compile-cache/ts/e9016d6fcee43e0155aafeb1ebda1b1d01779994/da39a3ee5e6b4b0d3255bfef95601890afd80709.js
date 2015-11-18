@@ -1,2 +1,0 @@
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiL2hvbWUvY20vLmF0b20vcGFja2FnZXMvbmlsLXVpL2ZpbGUtdHlwZXMvVHlwZXNjcmlwdC50cyIsInNvdXJjZXMiOlsiL2hvbWUvY20vLmF0b20vcGFja2FnZXMvbmlsLXVpL2ZpbGUtdHlwZXMvVHlwZXNjcmlwdC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiIiwic291cmNlc0NvbnRlbnQiOlsiIl19
-//# sourceURL=/home/cm/.atom/packages/nil-ui/file-types/Typescript.ts
