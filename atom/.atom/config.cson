@@ -6,7 +6,7 @@
   "one-dark-ui": {}
   core:
     themes: [
-      "seti-ui"
+      "dark-flat-ui"
       "vivid-syntax"
     ]
   editor:
