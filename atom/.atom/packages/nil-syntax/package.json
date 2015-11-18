@@ -1,0 +1,34 @@
+{
+  "name": "nil-syntax",
+  "theme": "syntax",
+  "version": "0.1.0",
+  "description": "A dark colored syntax theme for Atom.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nitrino/nil-syntax.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">=0.174.0 <2.0.0"
+  },
+  "readme": "# Nil Syntax theme\n\nA dark colored syntax theme for Atom. It goes well with [Nil Ui theme](https://github.com/Nitrino/nil-ui)\n\n![Screenshot](https://github.com/Nitrino/nil-syntax/raw/master/screenshot_1.png)\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/Nitrino/nil-syntax/issues"
+  },
+  "homepage": "https://github.com/Nitrino/nil-syntax#readme",
+  "_id": "nil-syntax@0.1.0",
+  "_shasum": "23c3e4a9009184f8742b419afd2d775b366d9768",
+  "_resolved": "file:../d-1151017-24248-13al1dz/package.tgz",
+  "_from": "../d-1151017-24248-13al1dz/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}
