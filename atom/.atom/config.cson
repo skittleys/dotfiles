@@ -17,3 +17,6 @@
   tabs:
     enableVcsColoring: true
     usePreviewTabs: true
+  "dark-flat-ui":
+    accentColor: "blue"
+  pigments: {}
