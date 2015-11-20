@@ -11,11 +11,13 @@
 		"Dotfiles Syntax Highlighting",
 		"ModernPerl",
 		"RubyTest",
+		"SchemeCycler",
 		"Schemr",
 		"Theme - Afterglow",
 		"Theme - Cyanide",
 		"Theme - Flatland",
 		"Theme - Phoenix",
+		"ToggleMinimapOnScroll",
 		"Vintage"
 	],
 	"ignored_words":
