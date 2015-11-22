@@ -1,6 +1,6 @@
 *.sublime_session
 *.sublime_project
-*.sublime_workspace
+*.sublime-workspace
 Backup*
 *.cache
 Index/
