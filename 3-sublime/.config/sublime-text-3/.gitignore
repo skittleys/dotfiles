@@ -5,3 +5,4 @@ Backup*
 *.cache
 Index/
 *.last-run
+Installed\ Packages/PyV8/linux64-p3/config.json
