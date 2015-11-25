@@ -16,3 +16,6 @@
 [submodule "vim/.vim/vim-addons/vim-pi"]
     path = vim/.vim/vim-addons/vim-pi
     url = https://bitbucket.org/vimcommunity/vim-pi
+[submodule "vim/.vim/vim-addons/vim-airline"]
+	path = vim/.vim/vim-addons/vim-airline
+	url = git://github.com/bling/vim-airline.git

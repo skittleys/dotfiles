@@ -22,6 +22,13 @@ set softtabstop=4			" Number of spaces per TAB
 syntax on
 colorscheme blacklight 
 
+
+
+
+"""""""""""
+" VAM
+"""""""""""
+
 fun! EnsureVamIsOnDisk(plugin_root_dir)
   let vam_autoload_dir = a:plugin_root_dir.'/vim-addon-manager/autoload'
   if isdirectory(vam_autoload_dir)
@@ -57,7 +64,7 @@ fun! SetupVAM()
   let &rtp.=(empty(&rtp)?'':',').c.plugin_root_dir.'/vim-addon-manager'
 
   " Tell VAM which plugins to fetch & load:
-  call vam#ActivateAddons([], {'auto_install' : 0})
+  call vam#ActivateAddons(['vim-airline','surround'], {'auto_install' : 0})
   " sample: call vam#ActivateAddons(['pluginA','pluginB', ...], {'auto_install' : 0})
   " Also See "plugins-per-line" below
 
@@ -82,6 +89,11 @@ call SetupVAM()
 " See BUGS sections below [*]
 " Vim 7.0 users see BUGS section [3]
 "
+
+
+"""""""""""""""
+" DiffWithSaved
+"""""""""""""""
 function! s:DiffWithSaved()
     let filetype=&ft
     diffthis
@@ -90,3 +102,21 @@ function! s:DiffWithSaved()
     exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
 com! DiffSaved call s:DiffWithSaved
+
+""""""""""""""
+" airline
+""""""""""""""
+let g:airline_theme             = 'powerlineish'
+
+" vim-powerline symbols
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:airline_left_sep          = '⮀'
+let g:airline_left_alt_sep      = '⮁'
+let g:airline_right_sep         = '⮂'
+let g:airline_right_alt_sep     = '⮃'
+let g:airline_symbols.branch    = '⭠'
+let g:airline_symbols.readonly  = '⭤'
+let g:airline_symbols.linenr    = '⭡'
